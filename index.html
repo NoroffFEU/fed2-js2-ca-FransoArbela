@@ -1,22 +1,47 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
 
-<head>
-  <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Noroff FED2 JS2 CA</title>
+    <script type="module" src="/src/js/main.js"></script>
+    <script type="module" src="src\js\api\auth\key.js" defer></script>
 
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Noroff FED2 JS2 CA</title>
-  <script type="module" src="/src/app.js"></script>
-</head>
+    <style>
+      div {
+        margin:auto;
+        background-color: rgba(176, 120, 202, 0.162);
+        width: fit-content;
+        padding: 1.5rem;
+      }
+    </style>
+  </head>
 
-<body>
-  <img src="/images/noroff-logo.png" alt="Noroff Logo" />
-
-  <h1>Home</h1>
-
-  <a href="/profile/">My Profile</a>
-  <a href="/auth/login/">Login</a>
-  <a href="/auth/register/">Register</a>
-  <button>Logout</button>
-</body>
+  <body>
+    <header>
+      <nav>
+        <img src="/images/noroff-logo.png" alt="Noroff Logo" />
+        <ul>
+          <li><a href="/profile/">My Profile</a></li>
+          <li><a href="/auth/login/">Login</a></li>
+          <li><a href="/auth/register/">Register</a></li>
+          <li><a id="logout-button" href="">Log out</a></li>
+        </ul>
+      </nav>
+    </header>
+    <main>
+      <div>
+        <h1>Welcome to home</h1>
+        <p>This is the home page of the Noroff FED2 JS2 CA</p>
+        <p>Click the links below to view your profile or to log in or register</p>
+        <a href="/auth/login/index.html">Login</a>
+        <br>
+        <a href="/auth/register/index.html">register</a>
+      </div>
+    </main>
+    <footer>
+      <p>&copy; 2021 Noroff</p>
+    </footer>
+  </body>
 </html>

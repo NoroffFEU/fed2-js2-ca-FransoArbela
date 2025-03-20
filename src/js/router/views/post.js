@@ -1,1 +1,3 @@
-alert("Single Post Page");
+import { authGuard } from "../../utilities/authGuard";
+
+authGuard();

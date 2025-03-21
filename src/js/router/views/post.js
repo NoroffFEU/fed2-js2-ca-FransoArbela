@@ -9,7 +9,6 @@ readPosts(14, 1).then((allPosts) => {
       const postElement = document.createElement("div");
       postElement.classList.add("post");
 
-      // Build an <img> tag only if the URL exists
       let imageTag = "";
       if (post.media?.url) {
         imageTag = `<img class="post-img" src="${post.media.url}" alt="${post.title}">`;

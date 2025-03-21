@@ -1,0 +1,27 @@
+.post-container {
+    background-color: yellow;
+    width: 100%;
+    max-width: 72rem;
+    margin: auto;
+    display: flex;
+    padding: 1rem;
+}
+
+.post-container img {
+    width: 100%;
+    max-width: 42rem;
+}
+
+.post-wrapper {
+    background-color: green;
+    width: 100%;
+    max-width: 30rem;
+    margin-left: 1rem;
+}
+
+.post-comments {
+    background-color: rgb(47, 193, 255);
+}
+.post-reactions {
+    background-color: rgb(171, 196, 62);
+}

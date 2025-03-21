@@ -1,7 +1,7 @@
 import { API_KEY, API_SOCIAL_POSTS, API_SOCIAL_PROFILES } from "../constants";
 
 // fetching post by id
-export async function readPost(id = 8029) {
+export async function readPost(id) {
     try {
         const response = await fetch(`${API_SOCIAL_POSTS}/${id}`, {
             method: "GET",
@@ -44,7 +44,7 @@ try {
 }
 
 // fetching posts by username
-export async function readPostsByUser(username = "Samal", limit = 12, page = 1, tag) {
+export async function readPostsByUser(username, limit = 12, page = 1, tag) {
     try {
         const response = await fetch(`${API_SOCIAL_PROFILES}/${username}/posts?limit=${limit}&page=${page}&tag=${tag}`, {
             method: "GET",

@@ -4,7 +4,7 @@ export function loginListener() {
 
   const path = window.location.pathname;
 
-  if (token && (path === "/auth/login/" || path === "/auth/register/")) {
+  if (token && (path  === "/" || path === "/auth/login/" || path === "/auth/register/")) {
     window.location.href = "/profile/index.html";
   }
 }

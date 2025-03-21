@@ -26,8 +26,10 @@ export async function login(email, password) {
     const data = await response.json();
     const token = data.data.accessToken;
 
+const profile = JSON.stringify(data.data);
 
     localStorage.setItem("token", token);
+    localStorage.setItem("profile", profile);
     // getKey();
     loginListener()
     return data;

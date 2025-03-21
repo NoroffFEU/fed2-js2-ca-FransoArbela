@@ -7,9 +7,11 @@
     padding: 1rem;
 }
 
-.post-container img {
+.post-img {
     width: 100%;
     max-width: 42rem;
+    height: 40rem;
+    object-fit: cover;
 }
 
 .post-wrapper {
@@ -25,3 +27,37 @@
 .post-reactions {
     background-color: rgb(171, 196, 62);
 }
+
+#image-modal {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    z-index: 9999;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.8);
+  }
+  
+  #image-modal.hidden {
+    display: none;
+  }
+  
+  #image-modal img {
+    max-width: 90%;
+    max-height: 90%;
+    border-radius: 10px;
+    box-shadow: 0 0 10px #000;
+  }
+  
+  #close-modal {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    font-size: 40px;
+    color: white;
+    cursor: pointer;
+  }
+  

@@ -37,6 +37,12 @@ readPosts(14, 1).then((allPosts) => {
             postHeader.addEventListener("click", () => {
                 window.location.href = `../../../../profile/user.html?username=${post.author.name}`;
             });
+
+            const postImg = postElement.querySelector(".post-img");
+            postImg.addEventListener("click", () => {
+              window.location.href = `../../../../post/extend/index.html?id=${post.id}`;
+            }
+            );
       document.querySelector(".posts").appendChild(postElement);
     });
   });

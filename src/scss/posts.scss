@@ -34,6 +34,7 @@
 
 .post-img {
 width: 100%;
+cursor: pointer;
 }
 
 .no-img {
@@ -42,3 +43,8 @@ width: 100%;
     width: 10rem;
     max-width: 40rem;
 }
+
+.post-header {
+    cursor: pointer;
+}
+

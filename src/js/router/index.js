@@ -40,6 +40,9 @@ export default async function router(pathname = window.location.pathname) {
     case "/post/extend/":
       await import("./views/postExtend.js");
       break;
+    case "/profile/user.html":
+      await import("./views/usersProfile.js");
+      break;
     default:
       await import("./views/notFound.js");
   }

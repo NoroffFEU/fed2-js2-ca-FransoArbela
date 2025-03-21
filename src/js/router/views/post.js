@@ -1,6 +1,6 @@
 import { authGuard } from "../../utilities/authGuard";
 import "/src/scss/posts.scss";
-import { readPosts, readPost, readPostsByUser } from "/src/js/api/post/read.js";
+import { readPosts } from "/src/js/api/post/read.js";
 
 authGuard();
 
@@ -33,7 +33,10 @@ readPosts(14, 1).then((allPosts) => {
                     <p>${like} ${post.reactions}</p>
                     <p>${comment} ${post.comments}</p>
             `;
-
+            const postHeader = postElement.querySelector(".post-header");
+            postHeader.addEventListener("click", () => {
+                window.location.href = `../../../../profile/user.html?username=${post.author.name}`;
+            });
       document.querySelector(".posts").appendChild(postElement);
     });
   });

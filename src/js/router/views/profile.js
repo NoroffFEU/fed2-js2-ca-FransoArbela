@@ -36,7 +36,7 @@ readPostsByUser(username).then((allPosts) => {
         <img class="post-img" src="${post.media.url}" alt="${post.title}">
             `;
         postElement.addEventListener("click", () => {
-            window.location.href = `../../../../post/extend/index.html?id=${post.id}`;
+            window.location.href = `../../../../post/extend/index.html?username=${username}&id=${post.id}`;
         });
         document.querySelector(".posts").appendChild(postElement);
     });

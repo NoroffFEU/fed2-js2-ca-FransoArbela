@@ -35,6 +35,12 @@ header ul li a:hover{
     color: rgb(60, 137, 200);
 }
 
+header nav img {
+  width: 100%;
+  max-width: 14rem;
+}
+
+// main
 main {
   display: flex;
   flex-direction: column;

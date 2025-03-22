@@ -40,7 +40,7 @@ readPosts(14, 1).then((allPosts) => {
 
             const postImg = postElement.querySelector(".post-img");
             postImg.addEventListener("click", () => {
-              window.location.href = `../../../../post/extend/index.html?id=${post.id}`;
+              window.location.href = `../../../../post/extend/index.html?username=${post.author.name}&id=${post.id}`;
             }
             );
       document.querySelector(".posts").appendChild(postElement);

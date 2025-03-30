@@ -1,4 +1,4 @@
-import{r}from"./read-DwPFMF_1.js";import{a as d}from"./read-DeKABMXd.js";/* empty css                */import{a as s}from"./authGuard-DhotU-J4.js";import"./main-D5dIAjBa.js";s();const a=JSON.parse(localStorage.getItem("profile")),i=a.name;r(i).then(t=>{const e=document.querySelector(".profile");e.innerHTML=`
+import{r}from"./read-DVQmkAcA.js";import{a as d}from"./read-D7qq732q.js";/* empty css                */import{a as s}from"./authGuard-DoZLjNDn.js";import"./main-BNa_uB0o.js";s();const a=JSON.parse(localStorage.getItem("profile")),i=a.name;r(i).then(t=>{const e=document.querySelector(".profile");e.innerHTML=`
         <div class="profile-container">
             <button id="edit-btn">Edit</button>
             <img src="${t.data.avatar.url}" alt="${t.data.avatar.alt}">"
@@ -15,4 +15,4 @@ import{r}from"./read-DwPFMF_1.js";import{a as d}from"./read-DeKABMXd.js";/* empt
         </div>
     `});d(i).then(t=>{t.data.forEach(e=>{const o=document.createElement("div");o.classList.add("post"),o.id=e.id,o.innerHTML=`
         <img class="post-img" src="${e.media.url}" alt="${e.title}">
-            `,o.addEventListener("click",()=>{window.location.href=`../../../../posts/view.html?username=${i}&id=${e.id}`}),document.querySelector(".posts").appendChild(o)})});
+            `,o.addEventListener("click",()=>{window.location.href=`../posts/view.html?username=${i}&id=${e.id}`}),document.querySelector(".posts").appendChild(o)})});

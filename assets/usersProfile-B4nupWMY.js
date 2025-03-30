@@ -1,4 +1,4 @@
-import{r}from"./read-DwPFMF_1.js";import{a}from"./authGuard-DhotU-J4.js";import{a as n}from"./read-DeKABMXd.js";/* empty css                */import"./main-D5dIAjBa.js";a();const d=new URLSearchParams(window.location.search),s=d.get("username");r(s).then(e=>{const t=document.querySelector(".profile");t.innerHTML=`
+import{r}from"./read-DVQmkAcA.js";import{a}from"./authGuard-DoZLjNDn.js";import{a as n}from"./read-D7qq732q.js";/* empty css                */import"./main-BNa_uB0o.js";a();const d=new URLSearchParams(window.location.search),s=d.get("username");r(s).then(e=>{const t=document.querySelector(".profile");t.innerHTML=`
         <div class="profile-container">
             <button id="edit-btn">Edit</button>
             <img src="${e.data.avatar.url}" alt="${e.data.avatar.alt}">"

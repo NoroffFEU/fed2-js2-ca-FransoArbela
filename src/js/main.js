@@ -1,7 +1,9 @@
 // Import our custom CSS
-import '../scss/style.scss'
+import '../assets/css/main.css';
 import router from "./router";
 import { loginListener } from "./ui/global/loginListener";
+import { loadHeader } from '/src/assets/components/header.js';
+
 
 (async () => {
     try {
@@ -10,5 +12,6 @@ import { loginListener } from "./ui/global/loginListener";
       console.error("Error in router:", error);
     }
   })();
-
   loginListener()
+  loadHeader();
+  loadHeader()

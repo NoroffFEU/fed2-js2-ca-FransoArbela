@@ -25,7 +25,7 @@ export async function readPost(id) {
 export async function readPosts(limit, page, tag) {
 
 try {
-    const response = await fetch(`${API_SOCIAL_POSTS}?limit=${limit}&page=${page}&tag=${tag}&_author=true&_reactions=true&_comments=true`, {
+    const response = await fetch(`${API_SOCIAL_POSTS}?limit=${limit}&page=${page}&tag=${tag}&_author=true&_comments=true&_reactions=true&_count=true`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -63,3 +63,4 @@ export async function readPostsByUser(username, limit = 12, page = 1, tag) {
         console.error("readPosts error:", error);
       }
 }
+

@@ -68,3 +68,9 @@
   max-height: 22rem;
   object-fit: cover;
 }
+
+#navigation-bar {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}

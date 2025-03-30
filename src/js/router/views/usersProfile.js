@@ -1,8 +1,9 @@
 import { readProfile } from "../../api/profile/read";
 import { authGuard } from "../../utilities/authGuard";
 import { readPostsByUser } from "/src/js/api/post/read.js";
-import "../../../scss/profile.scss";
+import "/src/assets/css/profile.css";
 authGuard();
+
 
 const urlParams = new URLSearchParams(window.location.search);
 const username = urlParams.get("username");
@@ -41,7 +42,7 @@ readPostsByUser(username).then((allPosts) => {
             if (post.media?.url) {
               imageTag = `<img class="post-img" src="${post.media.url}" alt="${post.title}">`;
             } else {
-              imageTag = `<img class="post-img" src="/src/img/no_img.png" alt="">`;
+              imageTag = `<img class="post-img" src="/src/assets/images/no_img.png" alt="">`;
             }
             
             const postElement = document.createElement("div");
@@ -51,7 +52,7 @@ readPostsByUser(username).then((allPosts) => {
             ${imageTag}
                 `;
             postElement.addEventListener("click", () => {
-                window.location.href = `../../../../post/extend/index.html?id=${post.id}`;
+                window.location.href = `../../../../posts/view.html?username=${username}&id=${post.id}`;
             });
             document.querySelector(".posts").appendChild(postElement);
         });

@@ -1,8 +1,11 @@
 import { readProfile } from "../../api/profile/read";
-import { authGuard } from "../../utilities/authGuard";
 import { readPostsByUser } from "/src/js/api/post/read.js";
-import "../../../scss/profile.scss";
+import "/src/assets/css/profile.css";
+import { authGuard } from "../../utilities/authGuard";
+
 authGuard();
+
+
 const profile = JSON.parse(localStorage.getItem("profile"));
 const username = profile.name;
 
@@ -36,7 +39,7 @@ readPostsByUser(username).then((allPosts) => {
         <img class="post-img" src="${post.media.url}" alt="${post.title}">
             `;
         postElement.addEventListener("click", () => {
-            window.location.href = `../../../../post/extend/index.html?username=${username}&id=${post.id}`;
+            window.location.href = `../../../../posts/view.html?username=${username}&id=${post.id}`;
         });
         document.querySelector(".posts").appendChild(postElement);
     });

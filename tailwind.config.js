@@ -2,8 +2,8 @@
 export default {
   content: [
     "./index.html",
-    "./src/**/*.{html,js,css}",  // this covers all your views + CSS
-    "./post/**/*.html",          // you have HTML here too
+    "./src/**/*.{html,js,css}",  
+    "./post/**/*.html",          
     "./auth/**/*.html",
   ],
   theme: {

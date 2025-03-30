@@ -2,7 +2,7 @@
 import '../assets/css/main.css';
 import router from "./router";
 import { loginListener } from "./ui/global/loginListener";
-import { loadHeader } from '/src/assets/components/header.js';
+import { loadHeader } from '../assets/components/header.js';
 
 
 (async () => {

@@ -1,4 +1,4 @@
-import{a as p}from"./authGuard-OOVH_Tj-.js";import{b as g}from"./read-0dNlfVxd.js";import{r as u}from"./read-CmSSu15i.js";import"./constants-2sVKtVoG.js";p();const v=localStorage.getItem("profile"),f=JSON.parse(v),h=f.name,d=new URLSearchParams(window.location.search),$=d.get("id"),E=d.get("username");let n="";h===E&&(n=`<div class="edit-btn">
+import{a as p}from"./authGuard-OOVH_Tj-.js";import{b as g}from"./read-BAsoaHjc.js";import{r as u}from"./read-mlms9NGE.js";import"./constants-X-ayW_43.js";p();const v=localStorage.getItem("profile"),f=JSON.parse(v),h=f.name,d=new URLSearchParams(window.location.search),$=d.get("id"),E=d.get("username");let n="";h===E&&(n=`<div class="edit-btn">
   <button></button>
 </div>`);g($).then(e=>{const m=document.querySelector(".post");let a="";e.data.media===null?a='<img class="post-img" src="/src/assets/images/no_img.png" alt="">':a=`<img class="post-img" src="${e.data.media.url}" alt="${e.data.title}">`;let s=0,o=0;e.data._count.comments!==0&&(s=e.data._count.comments),e.data._count.reactions!==0&&(o=e.data._count.reactions),m.innerHTML=`
 

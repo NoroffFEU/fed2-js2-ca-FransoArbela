@@ -1,5 +1,8 @@
-import { onCreatePost } from "../../ui/post/create";
+import { onCreatePost } from "../../ui/post/onCreate.js";
 import { authGuard } from "../../utilities/authGuard";
+import { loadHeader } from '/src/assets/components/header.js';
+
+loadHeader();
 
 authGuard();
 

@@ -1,0 +1,76 @@
+.profile {
+  width: 100%;
+  background-color: blue;
+}
+
+.profile-container {
+  background-color: red;
+  width: 100%;
+  max-width: 40rem;
+  display: flex;
+  margin: auto;
+  padding: 4rem 2rem;
+  gap: 1rem;
+  justify-content: space-between;
+  position: relative;
+}
+
+.profile img {
+  width: 10rem;
+  height: 10rem;
+  border-radius: 50%;
+}
+
+.profile-details {
+  background-color: tomato;
+}
+
+.profile-counts {
+  display: flex;
+  justify-content: space-between;
+  background-color: yellow;
+  gap: 3rem;
+}
+
+#edit-btn {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+}
+
+#bio {
+  background-color: green;
+  margin-top: 2rem;
+}
+
+
+.posts {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr));
+  gap: 1rem;
+  width: 100%;
+  max-width: 72rem;
+  margin: auto;
+  background-color: gold;
+  padding: 1rem;
+}
+
+.post {
+  cursor: pointer;
+}
+
+.post:hover {
+  filter:brightness(0.6); ;
+}
+
+.posts img {
+  width: 100%;
+  max-height: 22rem;
+  object-fit: cover;
+}
+
+#navigation-bar {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}

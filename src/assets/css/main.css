@@ -3,7 +3,7 @@
 @tailwind components;
 @tailwind utilities;
 
-// main
+/* main */
 main {
   display: flex;
   flex-direction: column;

@@ -1,0 +1,1 @@
+import{A as a,a as t}from"./constants-2sVKtVoG.js";async function s(r){try{const e=await(await fetch(`${a}/${r}`,{method:"GET",headers:{"Content-Type":"application/json",accept:"application/json",Authorization:`Bearer ${localStorage.getItem("token")}`,"X-Noroff-API-Key":`${t}`}})).json();return console.log(e),e}catch(o){console.error("readProfile error:",o)}}export{s as r};

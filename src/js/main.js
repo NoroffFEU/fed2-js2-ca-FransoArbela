@@ -1,7 +1,7 @@
 // Import our custom CSS
 import '../assets/css/main.css';
-import router from "./router";
-import { loginListener } from "./ui/global/loginListener";
+import router from "./router/index.js";
+import { loginListener } from "./ui/global/loginListener.js";
 import { loadHeader } from '../assets/components/header.js';
 
 

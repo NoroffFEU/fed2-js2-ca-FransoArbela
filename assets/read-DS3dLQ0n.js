@@ -1,1 +1,0 @@
-import{b as t,c as a}from"./main-CxLlJ-PX.js";async function s(r){try{const e=await(await fetch(`${t}/${r}`,{method:"GET",headers:{"Content-Type":"application/json",accept:"application/json",Authorization:`Bearer ${localStorage.getItem("token")}`,"X-Noroff-API-Key":`${a}`}})).json();return console.log(e),e}catch(o){console.error("readProfile error:",o)}}export{s as r};

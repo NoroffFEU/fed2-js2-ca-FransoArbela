@@ -1,4 +1,4 @@
-import{r}from"./read-BxOFCbfK.js";import{b as s}from"./read-BgKxgaVE.js";/* empty css                */import{a as d}from"./authGuard-BjwX1WRu.js";import"./main-DQ8NZTdO.js";import"https://kit.fontawesome.com/553a084866.js";d();const a=JSON.parse(localStorage.getItem("profile")),t=a.name;r(t).then(o=>{const e=document.querySelector(".profile");e.innerHTML=`
+import{r}from"./read-BndnLtUw.js";import{b as s}from"./read-BHeIzZeO.js";/* empty css                */import{a as d}from"./authGuard-BjwX1WRu.js";import"./main-BBH5nOCb.js";import"https://kit.fontawesome.com/553a084866.js";d();const a=JSON.parse(localStorage.getItem("profile")),t=a.name;r(t).then(o=>{const e=document.querySelector(".profile");e.innerHTML=`
         <div class="profile-container">
             <div class="option-container">
             </div>
@@ -11,9 +11,7 @@ import{r}from"./read-BxOFCbfK.js";import{b as s}from"./read-BgKxgaVE.js";/* empt
                         <p>followers ${o.data._count.followers}</p>
                         <p>following ${o.data._count.following}</p>
                     </div>
-                <div class="follow-btns">
-                    
-                </div>
+                <div class="follow-btns"></div>
                 <p id="bio">${o.data.bio}</p>
             </div>
         </div>

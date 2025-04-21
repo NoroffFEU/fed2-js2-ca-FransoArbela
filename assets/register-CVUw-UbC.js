@@ -1,1 +1,0 @@
-import{a as e}from"./main-DQ8NZTdO.js";/* empty css              */import"https://kit.fontawesome.com/553a084866.js";async function t(r){}const o=document.forms.register;e();o.addEventListener("submit",t);

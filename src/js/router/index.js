@@ -1,39 +1,35 @@
-// This function controls which JavaScript file is loaded on which page
-// In order to add additional pages, you will need to implement them below
-// You may change the behaviour or approach of this file if you choose
-
-
+import { BASE_PATH } from "../api/constants.js";
 
 export default async function router(pathname = window.location.pathname) {
-  
+
   switch (pathname) {
-    case "/":
-    case "/index.html":
+    case `${BASE_PATH}`:
+    case `${BASE_PATH}index.html`:
       await import("./views/home.js");
       break;
-    case "/auth/login.html":
-      await import("./views/login.js");
+    case `${BASE_PATH}auth/login.html`:
+      await import("./views/auth/login.js");
       break;
-    case "/auth/register.html":
-      await import("./views/register.js");
+    case `${BASE_PATH}auth/register.html`:
+      await import("./views/auth/register.js");
       break;
-    case "/posts/feed.html":
-      await import("./views/feed.js");
+    case `${BASE_PATH}posts/feed.html`:
+      await import("./views/post/feed.js");
       break;
-    case "/posts/edit.html":
-      await import("./views/postEdit.js");
+    case `${BASE_PATH}posts/edit.html`:
+      await import("./views/post/edit.js");
       break;
-    case "/posts/create.html":
-      await import("./views/postCreate.js");
+    case `${BASE_PATH}posts/create.html`:
+      await import("./views/post/create.js");
       break;
-    case "/profile/me.html":
-      await import("./views/profile.js");
+    case `${BASE_PATH}profile/me.html`:
+      await import("./views/profile/profile.js");
       break;
-    case "/posts/view.html":
-      await import("./views/viewPost.js");
+    case `${BASE_PATH}posts/view.html`:
+      await import("./views/post/singlePost.js");
       break;
-    case "/profile/user.html":
-      await import("./views/usersProfile.js");
+    case `${BASE_PATH}profile/user.html`:
+      await import("./views/profile/usersProfile.js");
       break;
     default:
       await import("./views/notFound.js");

@@ -26,24 +26,72 @@
         </div>
 
         <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-          <form name="register" class="space-y-6" action="#" method="POST">
+          <form name="register" class="space-y-6">
+            <!-- username -->
             <div>
               <label
-                for="username"
+                for="name"
                 class="block text-sm/6 font-medium text-gray-900"
-                >username</label
+                >name</label
               >
               <div class="mt-2">
                 <input
-                  name="username"
-                  type="username"
-                  class="form-control"
-                  placeholder="username"
+                  name="name"
+                  type="name"
+
+                  placeholder="name"
                   required
-                  class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
+                  class="form-control block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
                 />
               </div>
             </div>
+            <!-- bio -->
+            <div>
+              <label for="bio" class="block text-sm/6 font-medium text-gray-900"
+                >Bio</label
+              >
+              <div class="mt-2">
+                <input
+                  name="bio"
+                  type="bio"
+                  placeholder="bio"
+                  class="form-control block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
+                />
+              </div>
+            </div>
+            <!-- banner -->
+            <div>
+              <label
+                for="banner"
+                class="block text-sm/6 font-medium text-gray-900"
+                >Banner</label
+              >
+              <div class="mt-2">
+                <input
+                  name="banner"
+                  type="banner"
+                  placeholder="banner"
+                  class="form-control block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
+                />
+              </div>
+            </div>
+            <!-- avatar -->
+            <div>
+              <label
+                for="avatar"
+                class="block text-sm/6 font-medium text-gray-900"
+                >Avatar</label
+              >
+              <div class="mt-2">
+                <input
+                  name="avatar"
+                  type="avatar"
+                  placeholder="avatar"
+                  class="form-control block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
+                />
+              </div>
+            </div>
+            <!-- email -->
             <div>
               <label
                 for="email"
@@ -54,14 +102,13 @@
                 <input
                   name="email"
                   type="email"
-                  class="form-control"
                   placeholder="name@example.com"
                   required
-                  class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
+                  class="form-control block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
                 />
               </div>
             </div>
-
+            <!-- password -->
             <div>
               <div class="flex items-center justify-between">
                 <label
@@ -75,14 +122,13 @@
                   name="password"
                   type="password"
                   placeholder="password"
-                  class="form-control"
                   aria-describedby="passwordHelpBlock"
                   required
-                  class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
+                  class="form-control block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
                 />
               </div>
             </div>
-
+            <!--  -->
             <div>
               <button
                 type="submit"

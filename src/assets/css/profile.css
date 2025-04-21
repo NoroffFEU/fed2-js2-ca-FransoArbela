@@ -1,10 +1,9 @@
 .profile {
   width: 100%;
-  background-color: blue;
+  margin-top: 4rem;
 }
 
 .profile-container {
-  background-color: red;
   width: 100%;
   max-width: 40rem;
   display: flex;
@@ -21,14 +20,10 @@
   border-radius: 50%;
 }
 
-.profile-details {
-  background-color: tomato;
-}
 
 .profile-counts {
   display: flex;
   justify-content: space-between;
-  background-color: yellow;
   gap: 3rem;
 }
 
@@ -39,7 +34,6 @@
 }
 
 #bio {
-  background-color: green;
   margin-top: 2rem;
 }
 
@@ -51,7 +45,6 @@
   width: 100%;
   max-width: 72rem;
   margin: auto;
-  background-color: gold;
   padding: 1rem;
 }
 
@@ -73,4 +66,18 @@
   position: fixed;
   bottom: 0;
   width: 100%;
+}
+
+#unfollow-btn, #follow-btn {
+  margin-top: 2rem;
+  background-color: rgb(215, 57, 40);
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+}
+
+#follow-btn {
+  background-color: gray;
 }

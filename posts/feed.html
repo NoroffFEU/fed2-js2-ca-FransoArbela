@@ -8,34 +8,31 @@
     <script type="module" src="../src/js/main.js"></script>
   </head>
   <body>
-    <aside id="left-sidebar">
-      <h2>Left Sidebar</h2>
-    </aside>
+    <aside id="left-sidebar" class="bg-gray-500 w-full h-full"></aside>
 
-    <main class="bg-red-500">
-      <div id="main-header">
-        <div class="logo">
-          <img src="/public/images/noroff-logo.png" alt="logo" />
-        </div>
-        <a id="logout-button" href="">Log out</a>
+    <main>
+      <header class="w-full h-16 flex justify-center items-center px-4">
+        <img src="/images/noroff-logo.png" alt="logo" class="h-10" />
+      </header>
+
+      <div class="search-posts">
+        <input type="text" id="search" placeholder="Search posts..." />
       </div>
-      <h1>Post Page</h1>
-      <div name="posts" class="posts"></div>
+      <div class="posts">
+      </div>
     </main>
 
     <aside class="bg-gray-500 w-full h-full" id="right-sidebar">
-      <h2>Right Sidebar</h2>
-      <div class="profile">
-        <div class="profile-img">
-          <img src="" alt="" />
+      <div class="profile-card">
+        <div id="right-aside-img">
+          <img id="profile-img" src="" alt="profile image" />
         </div>
         <div class="profile-info">
-          <h3>Username</h3>
-          <p>Email</p>
+          <h1 id="profile-username">Username</h1>
+          <p id="profile-bio">Bio</p>
         </div>
         <div class="profile-link">
-          <a href="/profile/me.html">My Profile</a>
-          <button>Log out</button>
+          <a href="../profile/me.html">Profile</a>
         </div>
       </div>
     </aside>

@@ -1,0 +1,45 @@
+.custom-nav {
+  padding: 1rem;
+  background-color: #1f2937; /* Tailwind's bg-gray-900 */
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
+
+.nav-container {
+  color: white;
+  width: 100%;
+  max-width: 1536px; /* Tailwind's max-w-screen-lg */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0 auto;
+}
+
+.nav-inner {
+  display: flex;
+  align-items: center;
+  background-color: #f6f6f6;
+  padding: 0.3rem 0.5rem;
+  border-radius: 10px;
+  gap: 1rem;
+  width: fit-content;
+  margin: 0 auto;
+}
+
+.nav-inner a {
+  color: rgb(37, 36, 36);
+  font-weight: 500;
+  padding: 0.2rem 0.5rem;
+  border-radius: 20px;
+  transition: all 0.2s ease-in-out;
+}
+
+.nav-inner a:hover {
+  background-color: rgb(156, 156, 156);
+  color: rgb(255, 255, 255);
+}

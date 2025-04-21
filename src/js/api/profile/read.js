@@ -4,7 +4,7 @@ import { API_SOCIAL_PROFILES, API_KEY } from "../constants";
 export async function readProfile(username) {
 try {
     const response = await fetch(
-      `${API_SOCIAL_PROFILES}/${username}`
+      `${API_SOCIAL_PROFILES}/${username}?_followers=true&_following=true`
     , {
         method: "GET",
         headers: {
@@ -15,7 +15,6 @@ try {
         },
     });
     const data = await response.json();
-    console.log(data);
     return data;
 
   } catch (error) {

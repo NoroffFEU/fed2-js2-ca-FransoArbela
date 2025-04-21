@@ -2,8 +2,9 @@
 import '../assets/css/main.css';
 import router from "./router/index.js";
 import { loginListener } from "./ui/global/loginListener.js";
-import { loadHeader } from '../assets/components/header.js';
-
+import { loadHeader } from '../js/components/header.js';
+import 'https://kit.fontawesome.com/553a084866.js';
+// Import Font Awesome
 
 (async () => {
     try {

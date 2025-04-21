@@ -3,7 +3,7 @@ import { API_KEY, API_SOCIAL_POSTS, API_SOCIAL_PROFILES } from "../constants";
 // fetching post by id
 export async function readPost(id) {
     try {
-        const response = await fetch(`${API_SOCIAL_POSTS}/${id}`, {
+        const response = await fetch(`${API_SOCIAL_POSTS}/${id}?_count=true&_comments=true&_reactions=true&_author=true`, {
             method: "GET",
             headers: {
               "Content-Type": "application/json",
@@ -14,7 +14,6 @@ export async function readPost(id) {
           }
         );
         const data = await response.json();
-        console.log(data);
         return data;
       } catch (error) {
         console.error("readPosts error:", error);
@@ -36,7 +35,6 @@ try {
       }
     );
     const data = await response.json();
-    console.log(data);
     return data;
   } catch (error) {
     console.error("readPosts error:", error);

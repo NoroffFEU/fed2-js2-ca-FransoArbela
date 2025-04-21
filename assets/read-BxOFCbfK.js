@@ -1,0 +1,1 @@
+import{d as r,c as a}from"./main-DQ8NZTdO.js";async function s(e){try{return await(await fetch(`${r}/${e}`,{method:"GET",headers:{"Content-Type":"application/json",accept:"application/json",Authorization:`Bearer ${localStorage.getItem("token")}`,"X-Noroff-API-Key":`${a}`}})).json()}catch(o){console.error("readProfile error:",o)}}export{s as r};

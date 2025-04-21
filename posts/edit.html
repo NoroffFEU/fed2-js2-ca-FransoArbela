@@ -5,16 +5,35 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Noroff FED2 JS2 CA</title>
-    <script type="module" crossorigin src="/fed2-js2-ca-FransoArbela/assets/main-etE6r0Nb.js"></script>
-    <link rel="stylesheet" crossorigin href="/fed2-js2-ca-FransoArbela/assets/main-C_MTRUlG.css">
+    <script type="module" crossorigin src="https://kit.fontawesome.com/553a084866.js"></script>
+    <script type="module" crossorigin src="/fed2-js2-ca-FransoArbela/assets/main-DQ8NZTdO.js"></script>
+    <script type="module" crossorigin src="https://kit.fontawesome.com/553a084866.js"></script>
+    <link rel="stylesheet" crossorigin href="/fed2-js2-ca-FransoArbela/assets/main-DsC_-4Ud.css">
   </head>
 
   <body>
 
     <h1>Edit Post</h1>
 
-    <form name="editPost">
-      <button>Edit Post</button>
+    <form name="edit-post" id="edit-post">
+      <h2>Edit Post</h2>
+      <label for="post-title">Title</label>
+      <input type="text" id="post-title" placeholder="Title" required />
+        
+      <label for="post-body">Body</label>
+      <textarea id="post-body" placeholder="Body" required></textarea>
+        
+      <label for="post-tags">Tags</label>
+      <input type="text" id="post-tags" placeholder="tag1, tag2, tag3" required />
+        
+      <label for="media-url">Media URL</label>
+      <input type="url" id="media-url" placeholder="https://..." required />
+        
+      <label for="media-alt">Media Alt Text</label>
+      <input type="text" id="media-alt" placeholder="Describe the image..." required />
+    
+      <button type="submit">Update Post</button>
+      <button type="button" id="delete-post">Delete Post</button>
     </form>
   </body>
 </html>

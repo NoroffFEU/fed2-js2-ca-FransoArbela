@@ -255,7 +255,7 @@ export const generatePostHTML = (post) => {
               <div class="profile">
               <img
                 class="profile-image"
-                src="${post.author.avatar || "../src/assets/images/no_img.png"}"
+                src="${post.author.avatar || "src/assets/images/no_img.png"}"
                 alt="${post.author.avatar.alt || "Profile Image"}"
               />
               <h3 class="username">${post.author.name}</h3>

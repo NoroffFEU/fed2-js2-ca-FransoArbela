@@ -1,8 +1,9 @@
-import { authGuard } from "../../../utilities/authGuard";
-import { editPost } from "../../../api/post/edit.js";
+import { authGuard } from "../../../utilities/authGuard.js";
+import { editPost } from "../../../api/post/update.js";
 import { readPost } from "../../../api/post/read.js";
-
+import "../../../../assets/css/updatePost.css";
 authGuard();
+
 const postId = new URLSearchParams(window.location.search).get("id");
 document.getElementById("edit-post").addEventListener("submit", (event) => {
   event.preventDefault();

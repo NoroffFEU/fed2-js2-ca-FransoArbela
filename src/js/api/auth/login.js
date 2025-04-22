@@ -1,10 +1,7 @@
 import { loginListener } from "../../ui/global/loginListener";
 import { API_BASE } from "../constants";
 
-
-
 export async function login(email, password) {
-
   const credentials = {
     email: email,
     password: password,
@@ -27,12 +24,11 @@ export async function login(email, password) {
     const data = await response.json();
     const token = data.data.accessToken;
 
-const profile = JSON.stringify(data.data);
+    const profile = JSON.stringify(data.data);
 
     localStorage.setItem("token", token);
     localStorage.setItem("profile", profile);
-    // getKey();
-    loginListener()
+    loginListener();
     return data;
   } catch (error) {
     console.error(error);

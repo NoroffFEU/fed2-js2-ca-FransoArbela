@@ -37,9 +37,14 @@
   padding: 0.2rem 0.5rem;
   border-radius: 20px;
   transition: all 0.2s ease-in-out;
+  text-align: center;
 }
 
 .nav-inner a:hover {
   background-color: rgb(156, 156, 156);
   color: rgb(255, 255, 255);
+}
+
+#logout-button {
+  background-color: rgb(224, 153, 153);
 }

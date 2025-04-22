@@ -13,8 +13,7 @@ export async function loadHeader() {
       <div class="nav-inner">
         <a href="../posts/feed.html">Home</a>
         <a href="../profile/me.html">Profile</a>
-        <a href="../posts/create.html">+</a>
-        <a href="../post/search.html">Search</a>
+        <a href="../posts/create.html">Create</a>
         <a id="logout-button" href="">Log out</a>
       </div>
     </div>

@@ -43,7 +43,7 @@ export const postInteraction = () => {
         editBtn.addEventListener("click", (event) => {
           event.preventDefault();
           const postId = post.closest(".post").id;
-          window.location.href = `../posts/edit.html?id=${postId}`;
+          window.location.href = `../posts/update.html?id=${postId}`;
         });
       }
       
@@ -63,22 +63,26 @@ export const postInteraction = () => {
 
   handleEditPost();
 
-  const submitCommentButtons = document.querySelectorAll(
-    "#submit-post-comment"
-  );
-  submitCommentButtons.forEach((button) => {
-    button.addEventListener("click", (event) => {
-      event.preventDefault();
-      const postId = button.closest(".post").id;
-      const commentInput = button
-        .closest(".input-wrapper")
-        .querySelector(".comment-input");
-      const commentText = commentInput.value.trim();
-      if (!commentText) return;
-      submitComment(postId, commentText);
-      commentInput.value = "";
+  const handleSubmitCommentButtons = () => {
+    const submitCommentButtons = document.querySelectorAll(
+      "#submit-post-comment"
+    );
+    submitCommentButtons.forEach((button) => {
+      button.addEventListener("click", (event) => {
+        event.preventDefault();
+        const postId = button.closest(".post").id;
+        const commentInput = button
+          .closest(".input-wrapper")
+          .querySelector(".comment-input");
+        const commentText = commentInput.value.trim();
+        if (!commentText) return;
+        submitComment(postId, commentText);
+        commentInput.value = "";
+      });
     });
-  });
+  };
+
+  handleSubmitCommentButtons();
 
   const handleReplyToDisplay = () => {
     const replyToDisplay = document.querySelectorAll(".reply-to");
@@ -116,60 +120,72 @@ export const postInteraction = () => {
   };
   handleReplyToDisplay();
 
-  const reactionBtns = document.querySelectorAll(".reaction-btns");
-  reactionBtns.forEach((button) => {
-    button.addEventListener("mouseenter", () => {
-      const reactionContainer = button
-        .closest(".like-comments-wrapper")
-        .querySelector(".reaction-container");
-      reactionContainer.style.display = "flex";
+  const handleReactionButtons = () => {
+    const reactionBtns = document.querySelectorAll(".reaction-btns");
+    reactionBtns.forEach((button) => {
+      button.addEventListener("mouseenter", () => {
+        const reactionContainer = button
+          .closest(".like-comments-wrapper")
+          .querySelector(".reaction-container");
+        reactionContainer.style.display = "flex";
 
-      const reactionBtn = button.querySelectorAll(".reaction-btn");
-      reactionBtn.forEach((btn) => {
-        btn.addEventListener("click", (event) => {
-          event.preventDefault();
-          const postId = button.closest(".post").id;
-          const reactionType = event.target.dataset.reactionType;
-          like(postId, reactionType);
+        const reactionBtn = button.querySelectorAll(".reaction-btn");
+        reactionBtn.forEach((btn) => {
+          btn.addEventListener("click", (event) => {
+            event.preventDefault();
+            const postId = button.closest(".post").id;
+            const reactionType = event.target.dataset.reactionType;
+            like(postId, reactionType);
+          });
         });
       });
+      button.addEventListener("mouseleave", () => {
+        const reactionContainer = button
+          .closest(".like-comments-wrapper")
+          .querySelector(".reaction-container");
+        reactionContainer.style.display = "none";
+      });
     });
-    button.addEventListener("mouseleave", () => {
-      const reactionContainer = button
-        .closest(".like-comments-wrapper")
-        .querySelector(".reaction-container");
-      reactionContainer.style.display = "none";
+  };
+
+  handleReactionButtons();
+
+  const handleCommentOptions = () => {
+    const commentOptions = document.querySelectorAll(".option-btn");
+    commentOptions.forEach((button) => {
+      button.addEventListener("click", (event) => {
+        event.preventDefault();
+        const optionBtnWrapper = button
+          .closest(".user-Info")
+          .querySelector(".option-btn-wrapper");
+        if (optionBtnWrapper.style.display === "flex") {
+          optionBtnWrapper.style.display = "none";
+        } else {
+          optionBtnWrapper.style.display = "flex";
+        }
+      });
     });
-  });
+  };
 
-  const commentOptions = document.querySelectorAll(".option-btn");
-  commentOptions.forEach((button) => {
-    button.addEventListener("click", (event) => {
-      event.preventDefault();
-      const optionBtnWrapper = button
-        .closest(".user-Info")
-        .querySelector(".option-btn-wrapper");
-      if (optionBtnWrapper.style.display === "flex") {
-        optionBtnWrapper.style.display = "none";
-      } else {
-        optionBtnWrapper.style.display = "flex";
-      }
+  handleCommentOptions();
+
+  const handleDeleteCommentButtons = () => {
+    const deleteCommentButtons = document.querySelectorAll(".comment-delete");
+    deleteCommentButtons.forEach((button) => {
+      button.addEventListener("click", (event) => {
+        event.preventDefault();
+        const commentID = button.closest(".author-name-target").id;
+        const postID = button.closest(".post").id;
+
+        const confirmed = confirm("Delete this comment?");
+        if (!confirmed) return;
+
+        deleteComment(postID, commentID);
+      });
     });
-  });
+  };
 
-  const deleteCommentButtons = document.querySelectorAll(".comment-delete");
-  deleteCommentButtons.forEach((button) => {
-    button.addEventListener("click", (event) => {
-      event.preventDefault();
-      const commentID = button.closest(".author-name-target").id;
-      const postID = button.closest(".post").id;
-
-      const confirmed = confirm("Delete this comment?");
-      if (!confirmed) return;
-
-      deleteComment(postID, commentID);
-    });
-  });
+  handleDeleteCommentButtons();
 
   const closeReplyButton = document.querySelectorAll(".close-reply-display");
   closeReplyButton.forEach((button) => {
@@ -178,16 +194,20 @@ export const postInteraction = () => {
     });
   });
 
-  const profileUsername = document.querySelectorAll(".username");
-  profileUsername.forEach((button) => {
-    button.addEventListener("click", (event) => {
-      event.preventDefault();
-      const username = button
-        .closest(".post")
-        .querySelector(".username").textContent;
-      window.location.href = `../profile/user.html?username=${username}`;
+  const handleProfileUsernameClick = () => {
+    const profileUsername = document.querySelectorAll(".username");
+    profileUsername.forEach((button) => {
+      button.addEventListener("click", (event) => {
+        event.preventDefault();
+        const username = button
+          .closest(".post")
+          .querySelector(".username").textContent;
+        window.location.href = `../profile/user.html?username=${username}`;
+      });
     });
-  });
+  };
+
+  handleProfileUsernameClick();
   const postDirect = document.querySelectorAll(".post-image");
   postDirect.forEach((button) => {
     button.addEventListener("click", (event) => {
@@ -218,6 +238,17 @@ const createPostInputSection = (replyingTo = "") => {
 };
 
 export const generatePostHTML = (post) => {
+  /**
+   * Generates an HTML string for a post profile section.
+   * 
+   * @param {Object} post - The post object containing author details.
+   * @param {Object} post.author - The author of the post.
+   * @param {Object} post.author.avatar - The avatar object of the author.
+   * @param {string} [post.author.avatar.url] - The URL of the author's avatar image.
+   * @param {string} [post.author.avatar.alt] - The alt text for the author's avatar image.
+   * @param {string} post.author.name - The name of the author.
+   * @returns {string} An HTML string representing the post profile section.
+   */
   const createPostProfile = (post) => {
     const postProfile = `
             <div class="profile-wrapper">
@@ -249,6 +280,16 @@ export const generatePostHTML = (post) => {
     return postImgContainer;
   };
 
+  /**
+   * Generates an HTML string for a comment image container.
+   *
+   * @param {Object} post - The post object containing author details.
+   * @param {Object} post.author - The author of the post.
+   * @param {Object} post.author.avatar - The avatar object of the author.
+   * @param {string} [post.author.avatar.url] - The URL of the author's avatar image.
+   * @param {string} [post.author.avatar.alt] - The alt text for the author's avatar image.
+   * @returns {string} An HTML string representing the comment image container.
+   */
   const createCommentImage = (post) => {
     let imgSrc = post.author.avatar.url || "../src/assets/images/no_img.png";
     let imgAlt = post.author.avatar.alt || "Post Image";
@@ -260,6 +301,7 @@ export const generatePostHTML = (post) => {
     return postImgContainer;
   };
 
+  
   const reactionAndCount = (post) => {
     const isComment = post.comments;
     const reactions = (post.reactions || []).map((r) => ({

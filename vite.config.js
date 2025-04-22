@@ -17,7 +17,7 @@ export default defineConfig({
         postFeed: resolve(__dirname, "./posts/feed.html"),
         postView: resolve(__dirname, "./posts/view.html"),
         postCreate: resolve(__dirname, "./posts/create.html"),
-        postEdit: resolve(__dirname, "./posts/edit.html"),
+        postEdit: resolve(__dirname, "./posts/update.html"),
       },
     },
   },

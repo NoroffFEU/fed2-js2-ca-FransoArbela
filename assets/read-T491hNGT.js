@@ -1,1 +1,0 @@
-import{e as r,d as t}from"./main-BKDZr5q_.js";async function s(e){try{return await(await fetch(`${r}/${e}?_followers=true&_following=true`,{method:"GET",headers:{"Content-Type":"application/json",accept:"application/json",Authorization:`Bearer ${localStorage.getItem("token")}`,"X-Noroff-API-Key":`${t}`}})).json()}catch(o){console.error("readProfile error:",o)}}export{s as r};

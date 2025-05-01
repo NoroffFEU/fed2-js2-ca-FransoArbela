@@ -1,1 +1,0 @@
-body{display:grid;grid-template-areas:"left main right" "footer footer footer"}.search-posts{width:100%;max-width:40rem;margin:0 auto}#search{background-color:#f4f4f4;width:100%;grid-area:main;padding:1rem}#left-sidebar{background-color:#f4f4f4;width:100%;grid-area:left}footer{background-color:#333;color:#fff;width:100%;grid-area:footer;text-align:center;padding:1rem}

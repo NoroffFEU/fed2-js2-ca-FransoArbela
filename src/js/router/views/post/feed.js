@@ -5,8 +5,8 @@ import "/src/assets/css/feed.css";
 import "../../../../assets/css/post.css";
 import {
   formatPostData,
-  generatePostHTML,
   postInteraction,
+  postHTML,
 } from "./postGenerate.js";
 import { searchPosts } from "../../../api/post/search.js";
 
@@ -14,18 +14,14 @@ authGuard();
 
 
 const searchInput = document.querySelector("#search");
-const postContainer = document.querySelector(".posts");
+export const postContainer = document.querySelector(".posts");
 
 function renderPosts(posts) {
   postContainer.innerHTML = "";
 
   posts.forEach((post) => {
     const postInfo = formatPostData(post);
-    const postHtmlString = generatePostHTML(postInfo);
-    const wrapper = document.createElement("div");
-    wrapper.innerHTML = postHtmlString.trim();
-    const postNode = wrapper.firstElementChild;
-    postContainer.appendChild(postNode);
+    postContainer.appendChild(postHTML(postInfo));
   });
 
   postInteraction();

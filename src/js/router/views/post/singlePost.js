@@ -1,11 +1,7 @@
 import { authGuard } from "../../../utilities/authGuard";
 import { readPost } from "/src/js/api/post/read.js";
 import "../../../../assets/css/post.css";
-import {
-  formatPostData,
-  generatePostHTML,
-  postInteraction,
-} from "./postGenerate.js";
+import { formatPostData, postHTML, postInteraction } from "./postGenerate.js";
 
 authGuard();
 
@@ -16,16 +12,10 @@ if (!postId) {
 }
 
 readPost(postId).then((posts) => {
-  console.log(posts);
   const postContainer = document.querySelector(".posts");
   const post = posts.data;
   const postInfo = formatPostData(post);
-  const postHtmlString = generatePostHTML(postInfo);
-  const wrapper = document.createElement("div");
-  wrapper.innerHTML = postHtmlString.trim();
-  const postNode = wrapper.firstElementChild;
+  postContainer.appendChild(postHTML(postInfo));
 
-  postContainer.appendChild(postNode);
-
-  postInteraction();
+  postInteraction(posts);
 });

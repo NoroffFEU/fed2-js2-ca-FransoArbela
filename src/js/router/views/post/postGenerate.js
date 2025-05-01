@@ -1,6 +1,7 @@
 import { deleteComment, deletePost } from "../../../api/post/delete.js";
 import { like } from "../../../api/post/reaction.js";
 import { submitComment } from "../../../api/post/comment.js";
+import { readProfile } from "../../../api/profile/read.js";
 
 export const postInteraction = () => {
   const handleEditPost = () => {
@@ -22,7 +23,6 @@ export const postInteraction = () => {
                 `;
       }
       return "";
-
     };
     profileWrapper.forEach((post) => {
       const profileEdit = post.querySelector(".profile-edit");
@@ -35,8 +35,8 @@ export const postInteraction = () => {
         } else {
           editWrapper.style.display = "flex";
         }
-      })
-      const editBtn = post.querySelector(".edit")
+      });
+      const editBtn = post.querySelector(".edit");
       const deleteBtn = post.querySelector(".delete");
 
       if (editBtn) {
@@ -46,14 +46,14 @@ export const postInteraction = () => {
           window.location.href = `../posts/update.html?id=${postId}`;
         });
       }
-      
+
       if (deleteBtn) {
         deleteBtn.addEventListener("click", (event) => {
           event.preventDefault();
           const postId = post.closest(".post").id;
           const confirmed = confirm("Delete this post?");
           if (!confirmed) return;
-      
+
           deletePost(postId);
           window.location.href = "../posts/feed.html";
         });
@@ -61,32 +61,22 @@ export const postInteraction = () => {
     });
   };
 
-  handleEditPost();
+  const resetInputBox = (postId) => {
+    const postEl = document.getElementById(postId);
+    if (!postEl) return;
 
-  const handleSubmitCommentButtons = () => {
-    const submitCommentButtons = document.querySelectorAll(
-      "#submit-post-comment"
-    );
-    submitCommentButtons.forEach((button) => {
-      button.addEventListener("click", (event) => {
-        event.preventDefault();
-        const postId = button.closest(".post").id;
-        const commentInput = button
-          .closest(".input-wrapper")
-          .querySelector(".comment-input");
-        const commentText = commentInput.value.trim();
-        if (!commentText) return;
-        submitComment(postId, commentText);
-        commentInput.value = "";
-      });
-    });
+    const inputWrapper = postEl.querySelector(".input-wrapper");
+    if (!inputWrapper) return;
+
+    // Replace the input with a fresh top-level comment input
+    inputWrapper.innerHTML = createPostInputSection("");
   };
 
-  handleSubmitCommentButtons();
-
-  const handleReplyToDisplay = () => {
+  const handleSubmitReplyButtons = () => {
     const replyToDisplay = document.querySelectorAll(".reply-to");
     replyToDisplay.forEach((button) => {
+      if (button.dataset.bound === "true") return;
+
       button.addEventListener("click", (event) => {
         event.preventDefault();
 
@@ -101,24 +91,138 @@ export const postInteraction = () => {
 
         inputWrapper.innerHTML = createPostInputSection(authorName);
 
-        inputWrapper.dataset.replyTo = commentId;
-
         const submitBtn = inputWrapper.querySelector("#submit-post-comment");
         const commentInput = inputWrapper.querySelector(".comment-input");
+        submitBtn.dataset.bound = "true";
+        hideReplyingBtn();
 
-        submitBtn.addEventListener("click", (event) => {
+        submitBtn.addEventListener("click", async (event) => {
           event.preventDefault();
 
           const commentText = commentInput.value.trim();
           if (!commentText) return;
-          submitComment(postId, commentText, commentId);
 
-          inputWrapper.innerHTML = createPostInputSection();
+          const isReplying =
+            inputWrapper.querySelector(".display-replying") !== null;
+
+          const newComment = await submitComment(
+            postId,
+            commentText,
+            isReplying ? commentId : null
+          );
+          if (!newComment) return;
+
+          const profile = await readProfile(newComment.data.owner);
+          if (!profile) return;
+
+          const commentData = {
+            id: newComment.data.id,
+            body: newComment.data.body,
+            created: newComment.data.created,
+            replyToId: null,
+            postId: postId,
+            author: {
+              name: profile.data.name,
+              email: profile.data.email,
+              avatar: {
+                url:
+                  profile.data.avatar.url || "../src/assets/images/no_img.png",
+                alt: profile.data.avatar.alt || "Profile Image",
+              },
+            },
+          };
+
+          if (isReplying) {
+            const replySection = button
+              .closest(".comment-body")
+              .querySelector(".reply-section");
+            replySection.innerHTML += createSingleCommentHTML(commentData, []);
+
+            const replyDisplay =
+              inputWrapper.querySelector(".display-replying");
+            if (replyDisplay) replyDisplay.remove();
+          } else {
+            const commentSection = button
+              .closest(".post")
+              .querySelector(".comment-section");
+            commentSection.innerHTML += createSingleCommentHTML(
+              commentData,
+              []
+            );
+          }
+
+          postInteraction();
+          commentInput.value = "";
+          resetInputBox(postId);
+          handleSubmitReplyButtons();
         });
       });
+      button.dataset.bound = "true";
     });
   };
-  handleReplyToDisplay();
+
+  const handleSubmitCommentButtons = () => {
+    const submitCommentButtons = document.querySelectorAll(
+      "#submit-post-comment.top-submit"
+    );
+
+    submitCommentButtons.forEach((button) => {
+      if (button.dataset.bound === "true") return;
+
+      button.addEventListener("click", async (event) => {
+        event.preventDefault();
+
+        const postEl = button.closest(".post");
+        if (!postEl) return;
+
+        const inputWrapper = postEl.querySelector(".input-wrapper");
+        if (!inputWrapper) return;
+
+        const commentInput = inputWrapper.querySelector(".comment-input");
+        if (!commentInput) return;
+
+        const commentText = commentInput.value.trim();
+        if (!commentText) return;
+
+        const replyingToBox = inputWrapper.querySelector(".display-replying");
+        if (replyingToBox) replyingToBox.remove();
+
+        const postId = postEl.id;
+
+        const newComment = await submitComment(postId, commentText);
+        if (!newComment) return;
+
+        const profile = await readProfile(newComment.data.owner);
+        if (!profile) return;
+
+        const commentData = {
+          id: newComment.data.id,
+          body: newComment.data.body,
+          created: newComment.data.created,
+          replyToId: null,
+          postId: postId,
+          author: {
+            name: profile.data.name,
+            email: profile.data.email,
+            avatar: {
+              url: profile.data.avatar.url || "../src/assets/images/no_img.png",
+              alt: profile.data.avatar.alt || "Profile Image",
+            },
+          },
+        };
+
+        const commentSection = postEl.querySelector(".comment-section");
+        commentSection.innerHTML += createSingleCommentHTML(commentData, []);
+
+        postInteraction();
+        commentInput.value = "";
+        resetInputBox(postId); 
+        handleSubmitCommentButtons();
+      });
+
+      button.dataset.bound = "true";
+    });
+  };
 
   const handleReactionButtons = () => {
     const reactionBtns = document.querySelectorAll(".reaction-btns");
@@ -148,8 +252,6 @@ export const postInteraction = () => {
     });
   };
 
-  handleReactionButtons();
-
   const handleCommentOptions = () => {
     const commentOptions = document.querySelectorAll(".option-btn");
     commentOptions.forEach((button) => {
@@ -167,32 +269,35 @@ export const postInteraction = () => {
     });
   };
 
-  handleCommentOptions();
-
   const handleDeleteCommentButtons = () => {
     const deleteCommentButtons = document.querySelectorAll(".comment-delete");
     deleteCommentButtons.forEach((button) => {
-      button.addEventListener("click", (event) => {
+      if (button.dataset.bound === "true") return;
+      button.addEventListener("click", async (event) => {
         event.preventDefault();
         const commentID = button.closest(".author-name-target").id;
         const postID = button.closest(".post").id;
-
+        const targetedComment = button.closest(".author-name-target");
         const confirmed = confirm("Delete this comment?");
         if (!confirmed) return;
 
-        deleteComment(postID, commentID);
+        const commentDeleted = deleteComment(postID, commentID);
+        if (!commentDeleted) return;
+
+        targetedComment.remove();
       });
+      button.dataset.bound = "true";
     });
   };
 
-  handleDeleteCommentButtons();
-
-  const closeReplyButton = document.querySelectorAll(".close-reply-display");
-  closeReplyButton.forEach((button) => {
-    button.addEventListener("click", (event) => {
-      event.preventDefault();
+  const handleCloseReplyButtons = () => {
+    const closeReplyButtons = document.querySelectorAll(".close-reply-display");
+    closeReplyButtons.forEach((button) => {
+      button.addEventListener("click", (event) => {
+        event.preventDefault();
+      });
     });
-  });
+  };
 
   const handleProfileUsernameClick = () => {
     const profileUsername = document.querySelectorAll(".username");
@@ -207,50 +312,82 @@ export const postInteraction = () => {
     });
   };
 
-  handleProfileUsernameClick();
-  const postDirect = document.querySelectorAll(".post-image");
-  postDirect.forEach((button) => {
-    button.addEventListener("click", (event) => {
-      event.preventDefault();
-      const postId = button.closest(".post").id;
-      window.location.href = `../posts/view.html?id=${postId}`;
+  const handlePostImageClick = () => {
+    const postDirect = document.querySelectorAll(".post-image");
+    postDirect.forEach((button) => {
+      button.addEventListener("click", (event) => {
+        event.preventDefault();
+        const postId = button.closest(".post").id;
+        window.location.href = `../posts/view.html?id=${postId}`;
+      });
     });
-  });
+  };
+
+  const hideReplyingBtn = () => {
+    const replyDisplayBtn = document.querySelector(".close-reply-display");
+    if (!replyDisplayBtn) return;
+  
+    replyDisplayBtn.addEventListener("click", (event) => {
+      event.preventDefault();
+  
+      const replyDisplay = replyDisplayBtn.closest(".display-replying");
+      if (replyDisplay) {
+        const postId = replyDisplay.closest(".post").id;
+        resetInputBox(postId); 
+      }
+    });
+  };
+  
+
+  handleEditPost();
+  handleSubmitReplyButtons();
+  handleSubmitCommentButtons();
+  handleReactionButtons();
+  handleCommentOptions();
+  handleDeleteCommentButtons();
+  handleCloseReplyButtons();
+  handleProfileUsernameClick();
+  handlePostImageClick();
 };
 
+/////////////////////////////////////////////////////
+
 const createPostInputSection = (replyingTo = "") => {
-  const replyingSpan = replyingTo
+  const isReply = replyingTo !== "";
+  console.log(isReply ? "reply-submit" : "top-submit");
+  const replyingSpan = isReply
     ? `
       <div class="display-replying">
-      <button class="close-reply-display">⨉</button>
-      <p>replying to: @${replyingTo}</p>
+        <button class="close-reply-display">⨉</button>
+        <p>replying to: @${replyingTo}</p>
       </div>
-      `
+    `
     : "";
 
   return `
-      ${replyingSpan}
-      <input class="comment-input" type="text" placeholder="Add a comment..." />
-      <div class="submit-wrapper">
-        <button id="submit-post-comment" class="submit">submit</button>
-      </div>
-    `;
+    ${replyingSpan}
+    <input class="comment-input" type="text" placeholder="Add a comment..." />
+    <div class="submit-wrapper">
+      <button id="submit-post-comment" class="submit ${
+        isReply ? "reply-submit" : "top-submit"
+      }">submit</button>
+    </div>
+  `;
 };
 
-export const generatePostHTML = (post) => {
-  /**
-   * Generates an HTML string for a post profile section.
-   * 
-   * @param {Object} post - The post object containing author details.
-   * @param {Object} post.author - The author of the post.
-   * @param {Object} post.author.avatar - The avatar object of the author.
-   * @param {string} [post.author.avatar.url] - The URL of the author's avatar image.
-   * @param {string} [post.author.avatar.alt] - The alt text for the author's avatar image.
-   * @param {string} post.author.name - The name of the author.
-   * @returns {string} An HTML string representing the post profile section.
-   */
-  const createPostProfile = (post) => {
-    const postProfile = `
+/**
+ * Generates an HTML string for a post profile section.
+ *
+ * @param {Object} post - The post object containing author details.
+ * @param {Object} post.author - The author of the post.
+ * @param {Object} post.author.avatar - The avatar object of the author.
+ * @param {string} [post.author.avatar.url] - The URL of the author's avatar image.
+ * @param {string} [post.author.avatar.alt] - The alt text for the author's avatar image.
+ * @param {string} post.author.name - The name of the author.
+ * @returns {string} An HTML string representing the post profile section.
+ */
+const createPostProfile = (post) => {
+  const postProfile = `
             <div class="profile-wrapper">
               <div class="profile">
               <img
@@ -265,64 +402,63 @@ export const generatePostHTML = (post) => {
             </div>
       `;
 
-    return postProfile;
-  };
+  return postProfile;
+};
 
-  const createPostImage = (post) => {
-    let imgSrc = post.media?.url || "../src/assets/images/no_img.png";
-    let imgAlt = post.media?.alt || "Post Image";
+const createPostImage = (post) => {
+  let imgSrc = post.media?.url || "../src/assets/images/no_img.png";
+  let imgAlt = post.media?.alt || "Post Image";
 
-    const postImgContainer = `
+  const postImgContainer = `
             <div class="post-image">
               <img src="${imgSrc}" alt="${imgAlt}" />
             </div>
       `;
-    return postImgContainer;
-  };
+  return postImgContainer;
+};
 
-  /**
-   * Generates an HTML string for a comment image container.
-   *
-   * @param {Object} post - The post object containing author details.
-   * @param {Object} post.author - The author of the post.
-   * @param {Object} post.author.avatar - The avatar object of the author.
-   * @param {string} [post.author.avatar.url] - The URL of the author's avatar image.
-   * @param {string} [post.author.avatar.alt] - The alt text for the author's avatar image.
-   * @returns {string} An HTML string representing the comment image container.
-   */
-  const createCommentImage = (post) => {
-    let imgSrc = post.author.avatar.url || "../src/assets/images/no_img.png";
-    let imgAlt = post.author.avatar.alt || "Post Image";
-    const postImgContainer = `
+/**
+ * Generates an HTML string for a comment image container.
+ *
+ * @param {Object} post - The post object containing author details.
+ * @param {Object} post.author - The author of the post.
+ * @param {Object} post.author.avatar - The avatar object of the author.
+ * @param {string} [post.author.avatar.url] - The URL of the author's avatar image.
+ * @param {string} [post.author.avatar.alt] - The alt text for the author's avatar image.
+ * @returns {string} An HTML string representing the comment image container.
+ */
+const createCommentImage = (post) => {
+  let imgSrc = post.author.avatar.url || "../src/assets/images/no_img.png";
+  let imgAlt = post.author.avatar.alt || "Post Image";
+  const postImgContainer = `
             <div class="post-image">
               <img src="${imgSrc}" alt="${imgAlt}" />
             </div>
       `;
-    return postImgContainer;
-  };
+  return postImgContainer;
+};
 
-  
-  const reactionAndCount = (post) => {
-    const isComment = post.comments;
-    const reactions = (post.reactions || []).map((r) => ({
-      emoji: r?.symbol || "❓",
-      count: r?.count || 0,
-      reactors: r?.reactors || [],
-    }));
+const reactionAndCount = (post) => {
+  const isComment = post.comments;
+  const reactions = (post.reactions || []).map((r) => ({
+    emoji: r?.symbol || "❓",
+    count: r?.count || 0,
+    reactors: r?.reactors || [],
+  }));
 
-    let hasReaction = "";
-    let reactionDisplay = "";
+  let hasReaction = "";
+  let reactionDisplay = "";
 
-    if (reactions.length === 0) {
-      hasReaction = `<button><i class="fa-regular fa-heart"></i></button>`;
-    } else {
-      reactionDisplay = reactions
-        .map((r) => `<span class="reaction-item">${r.count} ${r.emoji}</span>`)
-        .join(" ");
-    }
+  if (reactions.length === 0) {
+    hasReaction = `<button><i class="fa-regular fa-heart"></i></button>`;
+  } else {
+    reactionDisplay = reactions
+      .map((r) => `<span class="reaction-item">${r.count} ${r.emoji}</span>`)
+      .join(" ");
+  }
 
-    if (post || isComment) {
-      return `
+  if (post || isComment) {
+    return `
         <div class="like-comments-wrapper">
           <div class="like-comments">
             <div class="reaction-btns">
@@ -343,173 +479,180 @@ export const generatePostHTML = (post) => {
           </div>
         </div>
       `;
-    }
-  };
+  }
+};
 
-  const createPostContent = (post) => {
-    const postContent = `
+const createPostContent = (post) => {
+  const postContent = `
                 <p class="post-text">
                 ${post.body || ""}
                 </p>
       `;
-    return postContent;
+  return postContent;
+};
+
+const createSingleCommentHTML = (comment, allReplies) => {
+  const deleteButtonRender = () => {
+    const profile = JSON.parse(localStorage.getItem("profile"));
+    return profile?.name === comment.author.name
+      ? `<button class="comment-delete">delete</button>`
+      : "";
   };
 
-  const createPostComments = (post) => {
-    const replies = post.comments;
-
-    const isNotReply = post.comments.filter((comment) => {
-      return comment.replyToId === null;
-    });
-
-    const postComments = (isNotReply || [])
-      .map((comment) => {
-        const deleteButtonRender = () => {
-          const profileJSON = localStorage.getItem("profile");
-          const profile = JSON.parse(profileJSON);
-          const authorizedUserName = profile.name;
-          const profileName = comment.author.name;
-
-          if (authorizedUserName === profileName) {
-            return `<button class="comment-delete">delete</button>`;
-          }
-          return "";
-        };
-
-        return `
-                <div class="author-name-target comment" id="${comment.id}">
-                  <div class="comment-profile">
-                    ${createCommentImage(comment)}
-                  </div>
-                  <div class="comment-body">
-                    <div class="user-Info comment-username-wrapper">
-                      <div class="comment-username">
-                      <p class="username">${comment.author.name}</p>
-                      </div>
-                      <div class="comment-option">
-                        <button class="option-btn">⋯</button>
-                        <div class="option-btn-wrapper">
-                          <button class="top-comment-edit">edit</button>
-                          ${deleteButtonRender()}
-                          </div>
-                      </div>
-                    </div>
-                    <div class="comment-text-wrapper">
-                      <p class="comment-text">
-                        ${comment.body || ""}
-                      </p>
-                      <div class="comment-action">
-                        <p class="posted-time">${createdTimeAt(
-                          comment.created
-                        )}</p>
-                        <button class="like">like</button>
-                        <button class="reply-to">reply</button>
-                        <p class="likes">5 likes</p>
-                      </div>
-                    </div>
-                    <div class="reply-section">
-                    ${createPostReply(
-                      replies.filter((reply) => reply.replyToId === comment.id)
-                    )}
-                    </div>
-                  </div>
-                </div>
-        `;
-      })
-      .join("");
-    return `<div class="post-comments">${postComments}</div>`;
-  };
-
-  /**
-   * Creates an HTML string representation of a post reply.
-   * @param {Object} post
-   * @param {Object} post.author
-   * @param {Object} post.author.avatar
-   * @param {string} post.author.avatar.url
-   * @param {string} post.body
-   * @returns {string}
-   */
-
-  const createPostReply = (replies) => {
-    const postComments = (replies || [])
-      .map((reply) => {
-        const deleteButtonRender = () => {
-          const profileJSON = localStorage.getItem("profile");
-          const profile = JSON.parse(profileJSON);
-          const authorizedUserName = profile.name;
-          const profileName = reply.author.name;
-          if (authorizedUserName === profileName) {
-            return `<button class="comment-delete">delete</button>`;
-          }
-          return "";
-        };
-        return `
-         <div class="author-name-target reply" id="${reply.id}">
-        <div class="reply-profile">
-          ${createCommentImage(reply)}
-        </div>
-        <div class="reply-body">
-          <div class="user-Info reply-username-wrapper">
-            <div class="reply-username">
-            <p class="username">${reply.author.name}</p>
-            </div>
-            <div class="reply-option">
-              <button class="option-btn">...</button>
-              <div class="option-btn-wrapper">
-                <button class="comment-edit">edit</button>
-                ${deleteButtonRender()}
-              </div>
+  return `
+    <div class="author-name-target comment" id="${comment.id}">
+      <div class="comment-profile">
+        ${createCommentImage(comment)}
+      </div>
+      <div class="comment-body">
+        <div class="user-Info comment-username-wrapper">
+          <div class="comment-username">
+            <p class="username">${comment.author.name}</p>
+          </div>
+          <div class="comment-option">
+            <button class="option-btn">⋯</button>
+            <div class="option-btn-wrapper">
+              <button class="top-comment-edit">edit</button>
+              ${deleteButtonRender()}
             </div>
           </div>
-          <p class="reply-text">${reply.body || ""}</p>
-          <div class="reply-action">
-            <p class="posted-time">${createdTimeAt(reply.created)}</p>
+        </div>
+        <div class="comment-text-wrapper">
+          <p class="comment-text">${comment.body || ""}</p>
+          <div class="comment-action">
+            <p class="posted-time">${createdTimeAt(comment.created)}</p>
+            <button class="like">like</button>
+            <button class="reply-to">reply</button>
+            <p class="likes">5 likes</p>
+          </div>
+        </div>
+        <div class="reply-section">
+          ${createPostReply(
+            allReplies.filter((reply) => reply.replyToId === comment.id),
+            allReplies
+          )}
+        </div>
+      </div>
+    </div>
+  `;
+};
+
+const createPostComments = (post) => {
+  const allReplies = post.comments || [];
+
+  const topLevelComments = allReplies.filter(
+    (comment) => comment.replyToId === null
+  );
+
+  const commentHTML = topLevelComments
+    .map((comment) => createSingleCommentHTML(comment, allReplies))
+    .join("");
+
+  return commentHTML;
+};
+
+/**
+ * Creates an HTML string representation of a post reply.
+ * @param {Object} post
+ * @param {Object} post.author
+ * @param {Object} post.author.avatar
+ * @param {string} post.author.avatar.url
+ * @param {string} post.body
+ * @returns {string}
+ */
+
+const createPostReply = (replies, allReplies) => {
+  const getReplyTargetName = (replyToId) => {
+    const target = allReplies.find((c) => c.id === replyToId);
+    return target ? target.author.name : "unknown";
+  };
+
+  const deleteButtonRender = (authorName) => {
+    const profile = JSON.parse(localStorage.getItem("profile"));
+    return profile?.name === authorName
+      ? `<button class="comment-delete">delete</button>`
+      : "";
+  };
+
+  const replyHTML = replies
+    .map((reply) => {
+      return `
+        <div class="author-name-target reply" id="${reply.id}">
+          <div class="reply-profile">
+            ${createCommentImage(reply)}
+          </div>
+          <div class="reply-body">
+            <div class="user-Info reply-username-wrapper">
+              <div class="reply-username">
+                <p class="username">${reply.author.name}</p>
+              </div>
+              <div class="reply-option">
+                <button class="option-btn">...</button>
+                <div class="option-btn-wrapper">
+                  <button class="comment-edit">edit</button>
+                  ${deleteButtonRender(reply.author.name)}
+                </div>
+              </div>
+            </div>
+            <p class="reply-text">
+              <span class="mention">@${getReplyTargetName(
+                reply.replyToId
+              )}</span>
+              ${reply.body || ""}
+            </p>
+            <div class="reply-action">
+              <p class="posted-time">${createdTimeAt(reply.created)}</p>
               <button class="like">like</button>
               <button class="reply-to">reply</button>
               <p class="likes">5 likes</p>
-            </div>       
-        </div>
-      </div>`;
-      })
-      .join("");
-    return `<div class="post-comments">${postComments}</div>`;
-  };
-
-  const createdTimeAt = (isoString) => {
-    const createdTime = new Date(isoString);
-    const now = new Date();
-    const diffMs = now - createdTime;
-
-    const diffMins = Math.floor(diffMs / (1000 * 60));
-    const diffHours = Math.floor(diffMins / 60);
-
-    if (diffMins < 1) return "just now";
-    if (diffMins < 60) return `${diffMins}m `;
-    if (diffHours < 24) return `${diffHours}h `;
-
-    const diffDays = Math.floor(diffHours / 24);
-    return `${diffDays}d`;
-  };
-
-  const postHTML = `
-    <div class="post" id="${post?.id}">
-        ${createPostProfile(post)}
-        ${createPostImage(post)}
-        <div class="post-body">
-          ${reactionAndCount(post)}
-          <div class="post-text-wrapper">
-            ${createPostContent(post)}
             </div>
-            <div class="comment-section">
-            ${createPostComments(post)}
-            </div>
-            <div class="input-wrapper">
-            ${createPostInputSection("")}
           </div>
         </div>
+      `;
+    })
+    .join("");
+
+  return `<div class="post-comments">${replyHTML}</div>`;
+};
+
+const createdTimeAt = (isoString) => {
+  const createdTime = new Date(isoString);
+  const now = new Date();
+  const diffMs = now - createdTime;
+
+  const diffMins = Math.floor(diffMs / (1000 * 60));
+  const diffHours = Math.floor(diffMins / 60);
+
+  if (diffMins < 1) return "just now";
+  if (diffMins < 60) return `${diffMins}m `;
+  if (diffHours < 24) return `${diffHours}h `;
+
+  const diffDays = Math.floor(diffHours / 24);
+  return `${diffDays}d`;
+};
+
+export const postHTML = (post) => {
+  const wrapper = document.createElement("div");
+  wrapper.innerHTML = `
+    <div class="post" id="${post?.id}">
+      ${createPostProfile(post)}
+      ${createPostImage(post)}
+      <div class="post-body">
+        ${reactionAndCount(post)}
+        <div class="post-text-wrapper">
+          ${createPostContent(post)}
+        </div>
+        <div class="comment-section">
+          ${createPostComments(post)}
+        </div>
+        <div class="input-wrapper">
+          ${createPostInputSection("")}
+        </div>
+      </div>
     </div>
   `;
-  return postHTML;
+
+  return wrapper.firstElementChild;
 };
 
 // Format post data for display
@@ -559,4 +702,3 @@ export function formatPostData(post) {
       : [],
   };
 }
-

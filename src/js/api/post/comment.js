@@ -23,7 +23,6 @@ export async function submitComment(postId, commentBody, replyToId = null) {
     if (!response.ok) {
       throw new Error("Comment submission failed");
     }
-    window.location.reload();
     const data = await response.json();
     return data;
   } catch (error) {

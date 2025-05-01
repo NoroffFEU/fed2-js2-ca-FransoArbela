@@ -14,14 +14,15 @@ export async function deletePost(id) {
         if (!response.ok) {
             throw new Error("Post deletion failed");
         }
-        location.reload(); 
+
     }
     catch (error) {
         console.error("Error deleting post:", error);
     }
 }
 
-export async function deleteComment(postId, commentId) {
+export async function deleteComment(postId, commentId) 
+{
     try {
 
         const response = await fetch(`${API_SOCIAL_POSTS}/${postId}/comment/${commentId}`, {
@@ -34,7 +35,6 @@ export async function deleteComment(postId, commentId) {
         if (!response.ok) {
             throw new Error("Comment deletion failed");
         }
-        location.reload(); 
     }
     catch (error) {
         console.error("Error deleting comment:", error);

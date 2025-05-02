@@ -1,7 +1,9 @@
 import { authGuard } from "../../../utilities/authGuard";
 import { readPost } from "/src/js/api/post/read.js";
 import "../../../../assets/css/post.css";
-import { formatPostData, postHTML, postInteraction } from "./postGenerate.js";
+import { formatPostData, postHTML } from "./postGenerate.js";
+import { postInteraction } from "./postInteraction.js";
+
 
 authGuard();
 

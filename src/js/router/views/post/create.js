@@ -9,7 +9,7 @@ authGuard();
 const submitButton = document.querySelector("#submit");
 
 submitButton.addEventListener("click", async (event) => {
-  event.preventDefault(); // prevent form reload
+  event.preventDefault();
 
   const form = document.forms.createPost;
   const title = form.title.value;
@@ -22,4 +22,5 @@ submitButton.addEventListener("click", async (event) => {
 
     createPost({ title, body, tags, media });
 
+  window.location.href = "../../../../../profile/me.html";
 });

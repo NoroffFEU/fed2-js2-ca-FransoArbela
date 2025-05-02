@@ -3,15 +3,11 @@ import { readProfile } from "../../../api/profile/read.js";
 import { authGuard } from "../../../utilities/authGuard.js";
 import "/src/assets/css/feed.css";
 import "../../../../assets/css/post.css";
-import {
-  formatPostData,
-  postInteraction,
-  postHTML,
-} from "./postGenerate.js";
+import { formatPostData, postHTML } from "./postGenerate.js";
+import { postInteraction } from "./postInteraction.js";
 import { searchPosts } from "../../../api/post/search.js";
 
 authGuard();
-
 
 const searchInput = document.querySelector("#search");
 export const postContainer = document.querySelector(".posts");
@@ -47,9 +43,52 @@ searchInput.addEventListener("input", async () => {
   }
 });
 
-readPosts(12, 1).then((posts) => {
-  renderPosts(posts.data);
+let currentPage = 12;
+
+function loadPosts(pageSize) {
+  showSkeletons();
+
+  readPosts(pageSize, 1).then((posts) => {
+    removeSkeletons();
+    renderPosts(posts.data);
+  });
+}
+
+
+  loadPosts(currentPage);
+
+
+window.addEventListener("scroll", () => {
+  if (window.innerHeight + window.scrollY >= document.body.scrollHeight) {
+    currentPage += 4;
+    loadPosts(currentPage);
+  }
 });
+
+
+function createSkeletonPost() {
+  const skeleton = document.createElement("div");
+  skeleton.classList.add("skeleton-post");
+
+  skeleton.innerHTML = `
+    <div class="skeleton skeleton-avatar"></div>
+    <div class="skeleton skeleton-line" style="width: 60%"></div>
+    <div class="skeleton skeleton-line" style="width: 100%; height: 200px"></div>
+    <div class="skeleton skeleton-line" style="width: 80%"></div>
+  `;
+
+  return skeleton;
+}
+
+function showSkeletons(count = 3) {
+  for (let i = 0; i < count; i++) {
+    postContainer.appendChild(createSkeletonPost());
+  }
+}
+
+function removeSkeletons() {
+  document.querySelectorAll(".skeleton-post").forEach((el) => el.remove());
+}
 
 const profileJSON = localStorage.getItem("profile");
 const profile = JSON.parse(profileJSON);

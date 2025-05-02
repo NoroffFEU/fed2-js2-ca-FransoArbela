@@ -11,6 +11,7 @@ main {
   justify-content: space-between;
   min-height: 100vh;
   padding-top: 4rem;
+  overflow-y: auto;
 }
 
 section {

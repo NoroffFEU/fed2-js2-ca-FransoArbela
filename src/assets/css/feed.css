@@ -17,6 +17,45 @@ body {
   padding: 1rem;
 }
 
+
+.skeleton {
+  background: linear-gradient(90deg, #e0e0e0 25%, #f0f0f0 50%, #e0e0e0 75%);
+  background-size: 200% 100%;
+  animation: skeleton-loading 1.2s infinite;
+  border-radius: 8px;
+}
+
+@keyframes skeleton-loading {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+.skeleton-post {
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  width: 100%;
+}
+
+.skeleton-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+
+}
+
+.skeleton-line {
+  height: 16px;
+  margin-top: 0.5rem;
+  border-radius: 4px;
+}
+
+
 /* Left Sidebar */
 #left-sidebar {
   background-color: #f4f4f4;

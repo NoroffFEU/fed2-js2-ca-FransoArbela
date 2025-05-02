@@ -1,31 +1,34 @@
-// This function controls which JavaScript file is loaded on which page
-// In order to add additional pages, you will need to implement them below
-// You may change the behaviour or approach of this file if you choose
+import { BASE_PATH } from "../api/constants.js";
+
 export default async function router(pathname = window.location.pathname) {
   switch (pathname) {
-    case "/":
+    case `${BASE_PATH}`:
+    case `${BASE_PATH}index.html`:
       await import("./views/home.js");
       break;
-    case "/auth/":
-      await import("./views/auth.js");
+    case `${BASE_PATH}auth/login.html`:
+      await import("./views/auth/login.js");
       break;
-    case "/auth/login/":
-      await import("./views/login.js");
+    case `${BASE_PATH}auth/register.html`:
+      await import("./views/auth/register.js");
       break;
-    case "/auth/register/":
-      await import("./views/register.js");
+    case `${BASE_PATH}posts/feed.html`:
+      await import("./views/post/feed.js");
       break;
-    case "/post/":
-      await import("./views/post.js");
+    case `${BASE_PATH}posts/update.html`:
+      await import("./views/post/update.js");
       break;
-    case "/post/edit/":
-      await import("./views/postEdit.js");
+    case `${BASE_PATH}posts/create.html`:
+      await import("./views/post/create.js");
       break;
-    case "/post/create/":
-      await import("./views/postCreate.js");
+    case `${BASE_PATH}profile/me.html`:
+      await import("./views/profile/profile.js");
       break;
-    case "/profile/":
-      await import("./views/profile.js");
+    case `${BASE_PATH}posts/view.html`:
+      await import("./views/post/singlePost.js");
+      break;
+    case `${BASE_PATH}profile/user.html`:
+      await import("./views/profile/usersProfile.js");
       break;
     default:
       await import("./views/notFound.js");

@@ -3,19 +3,21 @@ import { defineConfig } from "vite";
 
 export default defineConfig({
   appType: "mpa",
-  base: "",
+  base: "/fed2-js2-ca-FransoArbela/",
   build: {
     target: "esnext",
     rollupOptions: {
       input: {
         main: resolve(__dirname, "./index.html"),
-        login: resolve(__dirname, "./auth/login/index.html"),
+        login: resolve(__dirname, "./auth/login.html"),
         auth: resolve(__dirname, "./auth/index.html"),
-        register: resolve(__dirname, "./auth/register/index.html"),
-        profile: resolve(__dirname, "./profile/index.html"),
-        post: resolve(__dirname, "./post/index.html"),
-        editPost: resolve(__dirname, "./post/edit/index.html"),
-        createPost: resolve(__dirname, "./post/create/index.html"),
+        register: resolve(__dirname, "./auth/register.html"),
+        profile: resolve(__dirname, "./profile/me.html"),
+        profileUser: resolve(__dirname, "./profile/user.html"),
+        postFeed: resolve(__dirname, "./posts/feed.html"),
+        postView: resolve(__dirname, "./posts/view.html"),
+        postCreate: resolve(__dirname, "./posts/create.html"),
+        postEdit: resolve(__dirname, "./posts/update.html"),
       },
     },
   },

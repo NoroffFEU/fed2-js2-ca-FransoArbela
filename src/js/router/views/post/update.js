@@ -12,7 +12,7 @@ document.getElementById("edit-post").addEventListener("submit", (event) => {
     console.error("Post ID not found in URL");
     return;
   }
-  
+
   const title = document.getElementById("post-title").value.trim();
   const body = document.getElementById("post-body").value.trim();
   const tagsRaw = document.getElementById("post-tags").value.trim();
@@ -24,8 +24,7 @@ document.getElementById("edit-post").addEventListener("submit", (event) => {
     .map((tag) => tag.trim())
     .filter(Boolean);
 
-  editPost(postId, body, title, tags, mediaUrl, mediaAlt)
-  
+  editPost(postId, body, title, tags, mediaUrl, mediaAlt);
 });
 
 async function loadPostData() {

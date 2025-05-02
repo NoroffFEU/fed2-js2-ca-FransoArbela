@@ -1,6 +1,6 @@
 .custom-nav {
   padding: 1rem;
-  background-color: #1f2937; /* Tailwind's bg-gray-900 */
+  background-color: #1f2937; 
   color: white;
   display: flex;
   align-items: center;
@@ -13,7 +13,7 @@
 .nav-container {
   color: white;
   width: 100%;
-  max-width: 1536px; /* Tailwind's max-w-screen-lg */
+  max-width: 1536px; 
   display: flex;
   align-items: center;
   justify-content: space-between;

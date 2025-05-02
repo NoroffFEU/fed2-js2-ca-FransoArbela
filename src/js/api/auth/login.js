@@ -35,5 +35,3 @@ export async function login(email, password) {
     throw error;
   }
 }
-
-// this do the actual function

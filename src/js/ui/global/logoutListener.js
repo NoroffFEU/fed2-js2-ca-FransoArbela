@@ -8,4 +8,3 @@ export function setLogoutListener() {
     console.log("logout button clicked");
   });
 }
-// this do the listening

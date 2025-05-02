@@ -1,7 +1,6 @@
 import { BASE_PATH } from "../api/constants.js";
 
 export default async function router(pathname = window.location.pathname) {
-
   switch (pathname) {
     case `${BASE_PATH}`:
     case `${BASE_PATH}index.html`:

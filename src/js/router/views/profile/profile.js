@@ -8,7 +8,6 @@ authGuard();
 const profile = JSON.parse(localStorage.getItem("profile"));
 const username = profile.name;
 readProfile(username).then((allData) => {
-
   const profile = document.querySelector(".profile");
   profile.innerHTML = `
         <div class="profile-container">

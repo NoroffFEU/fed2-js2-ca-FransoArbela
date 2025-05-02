@@ -18,7 +18,6 @@ export async function submitComment(postId, commentBody, replyToId = null) {
         "X-Noroff-API-Key": `${API_KEY}`,
       },
       body: JSON.stringify(payload),
-
     });
     if (!response.ok) {
       throw new Error("Comment submission failed");
@@ -29,4 +28,3 @@ export async function submitComment(postId, commentBody, replyToId = null) {
     console.error("Error submitting comment:", error);
   }
 }
-

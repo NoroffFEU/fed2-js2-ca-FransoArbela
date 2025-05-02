@@ -4,7 +4,6 @@ import "../../../../assets/css/post.css";
 import { formatPostData, postHTML } from "./postGenerate.js";
 import { postInteraction } from "./postInteraction.js";
 
-
 authGuard();
 
 const urlParams = new URLSearchParams(window.location.search);

@@ -13,5 +13,3 @@ export async function onLogin(event) {
     console.error("Login error:", error);
   }
 }
-
-

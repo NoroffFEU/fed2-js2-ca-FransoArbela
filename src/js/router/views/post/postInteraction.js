@@ -131,7 +131,8 @@ export const postInteraction = () => {
               email: profile.data.email,
               avatar: {
                 url:
-                  profile.data.avatar.url || `${import.meta.env.BASE_URL}images/no_img.png`,
+                  profile.data.avatar.url ||
+                  `${import.meta.env.BASE_URL}images/no_img.png`,
                 alt: profile.data.avatar.alt || "Profile Image",
               },
             },
@@ -174,36 +175,36 @@ export const postInteraction = () => {
     const submitCommentButtons = document.querySelectorAll(
       "#submit-post-comment.top-submit"
     );
-  
+
     submitCommentButtons.forEach((button) => {
       if (button.dataset.bound === "true") return;
-  
+
       button.addEventListener("click", async (event) => {
         event.preventDefault();
-  
+
         const postEl = button.closest(".post");
         if (!postEl) return;
-  
+
         const inputWrapper = postEl.querySelector(".input-wrapper");
         if (!inputWrapper) return;
-  
+
         const commentInput = inputWrapper.querySelector(".comment-input");
         if (!commentInput) return;
-  
+
         const commentText = commentInput.value.trim();
         if (!commentText) return;
-  
+
         const replyingToBox = inputWrapper.querySelector(".display-replying");
         if (replyingToBox) replyingToBox.remove();
-  
+
         const postId = postEl.id;
-  
+
         const newComment = await submitComment(postId, commentText);
         if (!newComment) return;
-  
+
         const profile = await readProfile(newComment.data.owner);
         if (!profile) return;
-  
+
         const commentData = {
           id: newComment.data.id,
           body: newComment.data.body,
@@ -214,32 +215,34 @@ export const postInteraction = () => {
             name: profile.data.name,
             email: profile.data.email,
             avatar: {
-              url: profile.data.avatar.url || `${import.meta.env.BASE_URL}images/no_img.png`,
+              url:
+                profile.data.avatar.url ||
+                `${import.meta.env.BASE_URL}images/no_img.png`,
               alt: profile.data.avatar.alt || "Profile Image",
             },
           },
         };
-  
+
         const commentSection = postEl.querySelector(".comment-section");
         const newCommentHTML = createSingleCommentHTML(commentData, []);
         const temp = document.createElement("div");
         temp.innerHTML = newCommentHTML.trim();
-  
-        Array.from(temp.children).forEach((el) => commentSection.appendChild(el));
-  
+
+        Array.from(temp.children).forEach((el) =>
+          commentSection.appendChild(el)
+        );
+
         handleCommentOptions();
         handleDeleteCommentButtons();
-        handleSubmitCommentButtons(); //
-  
+        handleSubmitCommentButtons();
+
         commentInput.value = "";
         resetInputBox(postId);
-
       });
-  
+
       button.dataset.bound = "true";
     });
   };
-  
 
   const handleReactionButtons = () => {
     const reactionBtns = document.querySelectorAll(".reaction-btns");
@@ -273,26 +276,29 @@ export const postInteraction = () => {
     const commentOptions = document.querySelectorAll(".option-btn");
     commentOptions.forEach((button) => {
       if (button.dataset.bound === "true") return;
-  
+
       button.addEventListener("click", (event) => {
         event.preventDefault();
-      
+
         document.querySelectorAll(".option-btn-wrapper").forEach((w) => {
           w.style.display = "none";
         });
-      
+
         const wrapper =
-          button.closest(".reply-option")?.querySelector(".option-btn-wrapper") ||
-          button.closest(".comment-option")?.querySelector(".option-btn-wrapper");
-      
+          button
+            .closest(".reply-option")
+            ?.querySelector(".option-btn-wrapper") ||
+          button
+            .closest(".comment-option")
+            ?.querySelector(".option-btn-wrapper");
+
         if (wrapper) wrapper.style.display = "flex";
       });
-      
-  
+
       button.dataset.bound = "true";
     });
   };
-  
+
   const handleDeleteCommentButtons = () => {
     const deleteCommentButtons = document.querySelectorAll(".comment-delete");
     deleteCommentButtons.forEach((button) => {
@@ -343,35 +349,32 @@ export const postInteraction = () => {
   const hideReplyingBtn = () => {
     const replyDisplayBtn = document.querySelector(".close-reply-display");
     if (!replyDisplayBtn || replyDisplayBtn.dataset.bound === "true") return;
-  
+
     replyDisplayBtn.addEventListener("click", (event) => {
       event.preventDefault();
-  
+
       const replyDisplay = replyDisplayBtn.closest(".display-replying");
       if (replyDisplay) {
         const postId = replyDisplay.closest(".post").id;
         resetInputBox(postId);
       }
     });
-  
-    replyDisplayBtn.dataset.bound = "true"; 
+
+    replyDisplayBtn.dataset.bound = "true";
   };
-  
 
-const handleOutsideClick = () => {
+  const handleOutsideClick = () => {
     document.addEventListener("click", (event) => {
-        const isOptionButton = event.target.closest(".option-btn");
-        const isWrapper = event.target.closest(".option-btn-wrapper");
-    
-        if (!isOptionButton && !isWrapper) {
-            document.querySelectorAll(".option-btn-wrapper").forEach((wrapper) => {
-                wrapper.style.display = "none";
-            });
-        }
-    });
-};
+      const isOptionButton = event.target.closest(".option-btn");
+      const isWrapper = event.target.closest(".option-btn-wrapper");
 
-  
+      if (!isOptionButton && !isWrapper) {
+        document.querySelectorAll(".option-btn-wrapper").forEach((wrapper) => {
+          wrapper.style.display = "none";
+        });
+      }
+    });
+  };
 
   handleEditPost();
   handleSubmitReplyButtons();
@@ -382,5 +385,4 @@ const handleOutsideClick = () => {
   handleProfileUsernameClick();
   handlePostImageClick();
   handleOutsideClick();
-
 };

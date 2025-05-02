@@ -20,7 +20,7 @@ submitButton.addEventListener("click", async (event) => {
   };
   const tags = form.tags.value.split(",");
 
-    createPost({ title, body, tags, media });
+  createPost({ title, body, tags, media });
 
   window.location.href = "../../../../../profile/me.html";
 });

@@ -1,4 +1,4 @@
-import { API_SOCIAL_POSTS, API_KEY} from "../../api/constants";
+import { API_SOCIAL_POSTS, API_KEY } from "../../api/constants";
 
 export async function editPost(id, body, title, tags, url, alt) {
   const payload = {

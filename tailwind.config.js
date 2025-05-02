@@ -2,8 +2,8 @@
 export default {
   content: [
     "./index.html",
-    "./src/**/*.{html,js,css}",  
-    "./posts/**/*.html",          
+    "./src/**/*.{html,js,css}",
+    "./posts/**/*.html",
     "./auth/**/*.html",
     "./profile/**/*.html",
   ],
@@ -11,5 +11,4 @@ export default {
     extend: {},
   },
   plugins: [],
-}
-
+};

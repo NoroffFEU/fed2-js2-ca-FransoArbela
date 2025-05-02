@@ -3,8 +3,6 @@ import "../../assets/css/header.css";
 export async function loadHeader() {
   if (document.getElementById("navigation-bar")) return;
 
-  
-
   const nav = document.createElement("nav");
   nav.id = "navigation-bar";
   nav.className = "custom-nav";
@@ -19,5 +17,4 @@ export async function loadHeader() {
     </div>
   `;
   document.body.appendChild(nav);
-  
 }

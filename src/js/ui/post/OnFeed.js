@@ -4,6 +4,4 @@ const postsLength = 14;
 const pagesLength = 1;
 const tag = "";
 
-
-
-readPosts(postsLength, pagesLength, tag)
+readPosts(postsLength, pagesLength, tag);

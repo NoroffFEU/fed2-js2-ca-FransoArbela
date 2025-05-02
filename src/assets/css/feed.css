@@ -17,7 +17,6 @@ body {
   padding: 1rem;
 }
 
-
 .skeleton {
   background: linear-gradient(90deg, #e0e0e0 25%, #f0f0f0 50%, #e0e0e0 75%);
   background-size: 200% 100%;
@@ -46,7 +45,6 @@ body {
   width: 40px;
   height: 40px;
   border-radius: 50%;
-
 }
 
 .skeleton-line {
@@ -54,7 +52,6 @@ body {
   margin-top: 0.5rem;
   border-radius: 4px;
 }
-
 
 /* Left Sidebar */
 #left-sidebar {

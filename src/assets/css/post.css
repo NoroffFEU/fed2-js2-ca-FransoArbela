@@ -29,7 +29,6 @@
   margin-right: 0.625rem;
 }
 
-
 .username {
   font-size: 0.875rem;
   cursor: pointer;
@@ -236,7 +235,8 @@
   cursor: pointer;
 }
 
-.option-btn-wrapper, .profile-edit-wrapper {
+.option-btn-wrapper,
+.profile-edit-wrapper {
   background-color: #ededed;
   display: flex;
   flex-direction: column;

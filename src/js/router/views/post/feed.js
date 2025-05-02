@@ -54,9 +54,7 @@ function loadPosts(pageSize) {
   });
 }
 
-
-  loadPosts(currentPage);
-
+loadPosts(currentPage);
 
 window.addEventListener("scroll", () => {
   if (window.innerHeight + window.scrollY >= document.body.scrollHeight) {
@@ -64,7 +62,6 @@ window.addEventListener("scroll", () => {
     loadPosts(currentPage);
   }
 });
-
 
 function createSkeletonPost() {
   const skeleton = document.createElement("div");

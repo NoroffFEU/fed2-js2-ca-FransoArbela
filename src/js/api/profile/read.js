@@ -2,24 +2,24 @@ import { API_SOCIAL_PROFILES, API_KEY } from "../constants";
 
 // this for reading a profile
 export async function readProfile(username) {
-try {
+  try {
     const response = await fetch(
-      `${API_SOCIAL_PROFILES}/${username}?_followers=true&_following=true`
-    , {
+      `${API_SOCIAL_PROFILES}/${username}?_followers=true&_following=true`,
+      {
         method: "GET",
         headers: {
-            "Content-Type": "application/json",
-            accept: "application/json",
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-            "X-Noroff-API-Key": `${API_KEY}`,
+          "Content-Type": "application/json",
+          accept: "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+          "X-Noroff-API-Key": `${API_KEY}`,
         },
-    });
+      }
+    );
     const data = await response.json();
     return data;
-
   } catch (error) {
     console.error("readProfile error:", error);
-}
+  }
 }
 // this for searching for profiles
 export async function readProfiles(limit, page) {}

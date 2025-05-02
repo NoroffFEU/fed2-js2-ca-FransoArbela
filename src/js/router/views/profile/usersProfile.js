@@ -12,7 +12,9 @@ readProfile(username).then((allData) => {
   const profile = document.querySelector(".profile");
   profile.innerHTML = `
         <div class="profile-container">
-            <img src="${allData.data.avatar.url}" alt="${allData.data.avatar.alt}">
+            <img src="${allData.data.avatar.url}" alt="${
+    allData.data.avatar.alt
+  }">
             <div class="profile-details">
                 <h1>${allData.data.name}</h1>
                 <p>${allData.data.email}</p>
@@ -26,33 +28,35 @@ readProfile(username).then((allData) => {
             </div>
         </div>
     `;
-    const followBtn = document.getElementById("follow-btn");
-    const unfollowBtn = document.getElementById("unfollow-btn");
-    const isFollow = followBtn || unfollowBtn;
-  
-    if (isFollow.innerHTML === "Unfollow") {
-      isFollow.addEventListener("click", () => {
-        toFollow(username, "unfollow");
-      });
-    }
-    if (isFollow.innerHTML === "Follow") {
-      isFollow.addEventListener("click", () => {
-        toFollow(username, "follow");
-      });
-    }
+  const followBtn = document.getElementById("follow-btn");
+  const unfollowBtn = document.getElementById("unfollow-btn");
+  const isFollow = followBtn || unfollowBtn;
+
+  if (isFollow.innerHTML === "Unfollow") {
+    isFollow.addEventListener("click", () => {
+      toFollow(username, "unfollow");
+    });
+  }
+  if (isFollow.innerHTML === "Follow") {
+    isFollow.addEventListener("click", () => {
+      toFollow(username, "follow");
+    });
+  }
 });
 
 const followBtnDisplay = (post) => {
-  const profileLS = localStorage.getItem("profile")
+  const profileLS = localStorage.getItem("profile");
   const username = JSON.parse(profileLS).name;
-  const authorizedUsername = post.followers.find(follower => follower.name === username);
+  const authorizedUsername = post.followers.find(
+    (follower) => follower.name === username
+  );
   const isFollowing = authorizedUsername ? true : false;
   if (isFollowing) {
     return `<button id="unfollow-btn">Unfollow</button>`;
   } else {
     return `<button id="follow-btn">Follow</button>`;
   }
-}
+};
 
 readPostsByUser(username).then((allPosts) => {
   if (allPosts.data.length === 0) {
@@ -65,7 +69,9 @@ readPostsByUser(username).then((allPosts) => {
       if (post.media?.url) {
         imageTag = `<img class="post-img" src="${post.media.url}" alt="${post.title}">`;
       } else {
-        imageTag = `<img class="post-img" src="${import.meta.env.BASE_URL}images/no_img.png" alt="">`;
+        imageTag = `<img class="post-img" src="${
+          import.meta.env.BASE_URL
+        }images/no_img.png" alt="">`;
       }
 
       const postElement = document.createElement("div");

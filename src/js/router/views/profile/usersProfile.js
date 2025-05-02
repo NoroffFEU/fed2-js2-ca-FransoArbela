@@ -65,7 +65,7 @@ readPostsByUser(username).then((allPosts) => {
       if (post.media?.url) {
         imageTag = `<img class="post-img" src="${post.media.url}" alt="${post.title}">`;
       } else {
-        imageTag = `<img class="post-img" src="../src/assets/images/no_img.png" alt="">`;
+        imageTag = `<img class="post-img" src="${import.meta.env.BASE_URL}images/no_img.png" alt="">`;
       }
 
       const postElement = document.createElement("div");

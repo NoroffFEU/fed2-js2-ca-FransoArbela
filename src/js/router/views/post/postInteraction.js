@@ -131,7 +131,7 @@ export const postInteraction = () => {
               email: profile.data.email,
               avatar: {
                 url:
-                  profile.data.avatar.url || "../src/assets/images/no_img.png",
+                  profile.data.avatar.url || `${import.meta.env.BASE_URL}images/no_img.png`,
                 alt: profile.data.avatar.alt || "Profile Image",
               },
             },
@@ -214,7 +214,7 @@ export const postInteraction = () => {
             name: profile.data.name,
             email: profile.data.email,
             avatar: {
-              url: profile.data.avatar.url || "../src/assets/images/no_img.png",
+              url: profile.data.avatar.url || `${import.meta.env.BASE_URL}images/no_img.png`,
               alt: profile.data.avatar.alt || "Profile Image",
             },
           },

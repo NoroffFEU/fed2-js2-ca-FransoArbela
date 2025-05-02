@@ -40,7 +40,7 @@ const createPostProfile = (post) => {
               <div class="profile">
               <img
                 class="profile-image"
-                src="${post.author.avatar || "src/assets/images/no_img.png"}"
+                src="${post.author.avatar || `${import.meta.env.BASE_URL}images/no_img.png`}"
                 alt="${post.author.avatar.alt || "Profile Image"}"
               />
               <h3 class="username">${post.author.name}</h3>
@@ -54,7 +54,7 @@ const createPostProfile = (post) => {
 };
 
 const createPostImage = (post) => {
-  let imgSrc = post.media?.url || "../src/assets/images/no_img.png";
+  let imgSrc = post.media?.url || `${import.meta.env.BASE_URL}images/no_img.png`;
   let imgAlt = post.media?.alt || "Post Image";
 
   const postImgContainer = `
@@ -76,7 +76,7 @@ const createPostImage = (post) => {
  * @returns {string} An HTML string representing the comment image container.
  */
 const createCommentImage = (post) => {
-  let imgSrc = post.author.avatar.url || "../src/assets/images/no_img.png";
+  let imgSrc = post.author.avatar.url || `${import.meta.env.BASE_URL}images/no_img.png`;
   let imgAlt = post.author.avatar.alt || "Post Image";
   const postImgContainer = `
             <div class="post-image">

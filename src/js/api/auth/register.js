@@ -16,7 +16,6 @@ const payload = {
   banner,
   avatar,
 }
-console.log("Payload for registration:", payload);
   try {
     const response = await fetch(`${API_AUTH_REGISTER}`, {
       method: "POST",
@@ -30,7 +29,6 @@ console.log("Payload for registration:", payload);
       throw new Error("Registration failed");
     }
     const data = await response.json();
-    console.log("Registration successful:", data);
     return data;
   } catch (error) {
     console.error("Error during registration:", error);

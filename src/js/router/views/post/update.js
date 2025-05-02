@@ -24,13 +24,8 @@ document.getElementById("edit-post").addEventListener("submit", (event) => {
     .map((tag) => tag.trim())
     .filter(Boolean);
 
-  editPost(postId, body, title, tags, mediaUrl, mediaAlt).then(
-    (updatedPost) => {
-      if (updatedPost) {
-        console.log("Post updated!", updatedPost);
-      }
-    }
-  );
+  editPost(postId, body, title, tags, mediaUrl, mediaAlt)
+  
 });
 
 async function loadPostData() {

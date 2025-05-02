@@ -13,7 +13,7 @@ export async function like(id, symbol) {
         });
         if (!response.ok) {
             throw new Error("Like failed");
-        } console.log("Like successful", response);
+        } 
     } catch (error) {
         console.error(error);
     }

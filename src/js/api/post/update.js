@@ -26,7 +26,6 @@ export async function editPost(id, body, title, tags, url, alt) {
       throw new Error("Post update failed");
     }
     const data = await response.json();
-    console.log(data);
     return data;
   } catch (error) {
     console.error("Error updating post:", error);

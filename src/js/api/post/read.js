@@ -55,7 +55,6 @@ export async function readPostsByUser(username, limit = 12, page = 1, tag) {
           }
         );
         const data = await response.json();
-        console.log(data);
         return data;
       } catch (error) {
         console.error("readPosts error:", error);

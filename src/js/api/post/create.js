@@ -1,7 +1,6 @@
 import { API_SOCIAL_POSTS, API_KEY } from "../constants";
 
 export async function createPost({ title, body, tags, media }) {
-    console.log("Creating post with data:", { title, body, tags, media });
     try {
         const response = await fetch(`${API_SOCIAL_POSTS}`, {
             method: "POST",

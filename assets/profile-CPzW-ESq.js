@@ -1,4 +1,4 @@
-import{r}from"./read-DwIdlCHZ.js";import{b as s}from"./read-DGKucrLI.js";/* empty css                */import{a as d}from"./authGuard-BjwX1WRu.js";import"./main-VRu5ClId.js";import"https://kit.fontawesome.com/553a084866.js";d();const a=JSON.parse(localStorage.getItem("profile")),t=a.name;r(t).then(o=>{const e=document.querySelector(".profile");e.innerHTML=`
+import{r}from"./read-DeBWMSpm.js";import{b as s}from"./read-C1XJQtAO.js";/* empty css                */import{a as d}from"./authGuard-BjwX1WRu.js";import"./main-BnSz6Qq4.js";import"https://kit.fontawesome.com/553a084866.js";d();const a=JSON.parse(localStorage.getItem("profile")),t=a.name;r(t).then(o=>{const e=document.querySelector(".profile");e.innerHTML=`
         <div class="profile-container">
             <div class="option-container">
             </div>
